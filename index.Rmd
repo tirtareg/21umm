@@ -249,6 +249,117 @@ DT::datatable(data,
               #filter = "top")
 ```
 
+# ADIK
+
+## Row
+
+### peminat {.value-box}
+
+```{r}
+db <- read_excel("data_adik.xlsx")
+data <- db %>%
+  group_by(prodi) %>%
+  summarize(minat = max(pendaftar_p12)) %>%
+  na.omit()
+
+valueBox(
+  value = paste(format(sum(data$minat), big.mark = " "), "", sep = " "),
+  caption = "Peminat di Untirta",
+  icon = "fas fa-clipboard-check",
+  color = "black"
+)
+```
+
+### lulus {.value-box}
+
+```{r}
+data <- db %>%
+  filter(lulus == "lulus")
+
+valueBox(
+  value = paste(format(nrow(data), big.mark = " "), "", sep = " "),
+  caption = "Lulus JAJ",
+  icon = "fas fa-clipboard-check",
+  color = "purple"
+)
+```
+
+### laki-laki {.value-box}
+
+```{r}
+male <- data %>%
+  filter(jk == "L")
+valueBox(
+  value = paste(format(nrow(male), big.mark = " "), " (", 
+                round(nrow(male)/nrow(data)*100, 0), "%)",
+                sep = ""),
+  caption = "Laki-Laki",
+  icon = "fas fa-male",
+  color = "blue"
+)
+```
+
+### perempuan {.value-box}
+
+```{r}
+female <- filter(data, jk == "P")
+valueBox(
+  value = paste(format(nrow(female), big.mark = " "), " (", 
+                round(nrow(female)/nrow(data)*100,0), "%)",
+                sep = ""),
+  caption = "Perempuan",
+  icon = "fas fa-female",
+  color = "pink"
+)
+```
+
+### maba {.value-box}
+
+```{r}
+nim = nrow(filter(data, diterima == "diterima"))
+valueBox(
+  value = paste(format(nim, big.mark = " "), " (", 
+                round(nim/nrow(data) * 100, 0), "% )",
+                sep = " "),
+  caption = "Mahasiswa Baru",
+  icon = "fas fa-thumbs-up",
+  color = "cornflowerblue"
+)
+```
+
+## Row
+
+### **Sebaran maba di tiap Program Studi**
+
+```{r}
+data <- data %>%
+  group_by(fakultas, prodi) %>%
+  summarize(pendaftar = max(pendaftar_p12),
+            lulus = sum(lulus == "lulus", na.rm = T),
+            diterima = sum(diterima == "diterima", na.rm = T))
+data <- adorn_totals(data, where = "row", name = "Total")
+names(data) <- c("FAKULTAS", "PROGRAM STUDI", "PEMINAT", "LULUS SELEKSI", "DITERIMA")
+
+kable(data, row.names = F) %>%
+  kable_styling(bootstrap_options = "striped", full_width = T,
+                latex_options = "scale_down")
+```
+
+## Row
+
+### **Daftar nama Mahasiswa Baru Jalur Alih Jenjang**
+
+```{r}
+data <- db %>%
+  filter(diterima == "diterima")
+
+data <- data[,c(2, 3, 17, 10)]
+names(data) <- c("No Pendaftaran", "Nama", "Jenis Kelamin", "Program Studi")
+DT::datatable(data,
+              rownames = F)#,
+              #filter = "top")
+```
+
 # S2
 
 ## Row
