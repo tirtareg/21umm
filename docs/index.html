@@ -22,8 +22,8 @@
 window.FlexDashboardComponents = [];
 </script>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -39,378 +39,28 @@ window.FlexDashboardComponents = [];
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/value-box-accent-static-0.6.2/theme-cosmo-value-box.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.2/flexdashboard.min.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.2/theme-cosmo.css" rel="stylesheet" />
+<link href="site_libs/value-box-core-0.6.2/value-box.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.18/datatables.js"></script>
-<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="site_libs/datatables-binding-0.32/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <style type="text/css">
-
 /*
- Dashboard CSS from Keen IO Dashboards
- (https://github.com/keen/dashboards)
+  CSS for flexdashboard.js' use of Sly(). The sizing/position of this CSS needs to be
+  applied _before_ flexdashboard.js initializes, which is why this CSS has been pulled
+  out from flexdashboard.scss and inlined in the document's head.
 */
-
-body {
-  background: #f2f2f2;
-  padding: 60px 0 0 8px; /* padding-top overridden by theme */
-}
-
-body hr {
-  border-color: #d7d7d7;
-  margin: 10px 0;
-}
-
-.navbar-inverse .navbar-nav > li > a,
-.navbar .navbar-brand {
-  text-decoration: none;
-}
-
-.navbar-logo {
-  margin-top: 1px;
-}
-
-.navbar-logo img {
-  margin-right: 12px;
-}
-
-.navbar-author {
-  margin-left: 10px;
-  font-size: 15px;
-}
-
-.navbar .dropdown-menu .fa {
-  min-width: 20px;
-}
-
-.navbar .dropdown-menu {
-  min-width: 150px;
-  max-height: 500px;
-  overflow: auto;
-}
-
-.chart-wrapper,
-.nav-tabs-custom,
-.sbframe-commentary
-{
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 3px;
-  margin-bottom: 8px;
-  margin-right: 8px;
-}
-
-.chart-title {
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 14px;
-  font-weight: 300;
-  padding: 7px 10px 4px;
-}
-
-.chart-wrapper .chart-title:empty {
-  display: none;
-}
-
-.chart-wrapper .chart-stage {
-  overflow: hidden;
-  padding: 5px 10px;
-  position: relative;
-}
-
-.chart-wrapper .chart-notes {
-  background: #fbfbfb;
-  border-top: 1px solid #e2e2e2;
-  color: #808080;
-  font-size: 12px;
-  padding: 8px 10px 5px;
-}
-
-/*
- CSS for handling flexbox layout
-*/
-
-#dashboard-container {
-  visibility: hidden;
-}
-
-.tab-content>.dashboard-page-wrapper.active {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.dashboard-page-wrapper {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.dashboard-row-orientation {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.dashboard-row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.dashboard-row-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.dashboard-column-orientation {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.dashboard-column {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.chart-wrapper-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.chart-stage-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  position: relative;
-}
-
-.chart-shim {
-  position: absolute;
-  left: 8px; top: 8px; right: 8px; bottom: 8px;
-}
-
-.no-padding .chart-shim {
-  left: 0; top: 0; right: 0; bottom: 0;
-}
-
-.flowing-content-shim {
-  overflow: auto;
-  left: 0; top: 0; right: 0; bottom: 0;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.flowing-content-container {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.chart-stage .table-bordered {
-  border: none;
-}
-
-.chart-stage .table-bordered > tbody > tr > th,
-.chart-stage .table-bordered > tfoot > tr > th,
-.chart-stage .table-bordered > tbody > tr > td,
-.chart-stage .table-bordered > tfoot > tr > td {
-  border: none;
-}
-
-.chart-stage .table-bordered > tbody > tr > td {
-  border-top: 1px solid #dddddd;
-}
-
-.chart-stage .table-bordered > thead > tr > th {
-  border: none;
-  border-bottom: 2px solid #dddddd;
-}
-
-.bootstrap-table table>thead {
-  background-color: #fff;
-}
-
-.bootstrap-table table.data,
-.bootstrap-table table.shiny-table {
-  width: inherit !important;
-}
-
-.bootstrap-table table.data>tbody>tr>th,
-.bootstrap-table table.shiny-table>tbody>tr>th {
-  border-top: none;
-  border-bottom: 2px solid #dddddd;
-  padding: 5px;
-}
-
-.bootstrap-table .data td[align=right] {
-  font-family: inherit;
-}
-
-.chart-wrapper form {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.shiny-input-container label {
-  font-weight: normal;
-}
-
-.chart-stage .html-widget {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.chart-stage .html-widget-static-bound {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.chart-stage .shiny-bound-output {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Omit display of empty paragraphs */
-
-.chart-shim>p:empty {
-  display: none;
-}
-
-.chart-stage>p:empty {
-  display: none;
-}
-
-/* Omit display of special knitr options div*/
-
-.chart-stage .knitr-options {
-  display: none;
-}
-
-/* Automatically resizing images */
-
-.image-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-}
-
-.image-container img {
-  opacity: 0;
-  overflow: hidden;
-}
-
-/* Value box */
-
-.value-box {
-  border-radius: 2px;
-  position: relative;
-  display: block;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.value-box > .inner {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.value-box .value {
-  font-size: 38px;
-  font-weight: bold;
-  margin: 0 0 3px 0;
-  white-space: nowrap;
-  padding: 0;
-}
-
-.value-box .caption {
-  font-size: 15px;
-}
-.value-box .caption > small {
-  display: block;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-.value-box .icon i {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 80px;
-  color: rgba(0, 0, 0, 0.15);
-}
-
-.linked-value:hover {
-  cursor: pointer;
-}
-
-.value-box.linked-value:hover {
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* STORYBOARD */
 
 .storyboard-nav button {
   background: transparent;
@@ -435,7 +85,6 @@ body hr {
   float: left;
   width: 2%;
   height: 120px;
-  font-size: 50px;
 }
 
 .storyboard-nav .sbprev {
@@ -471,12 +120,7 @@ body hr {
   height: 100%;
   padding: 10px 10px 10px 10px;
   margin-right: 8px;
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 3px;
-  color: #3a3c47;
   text-align: left;
-  font-size: 14px;
   cursor: pointer;
 }
 
@@ -484,15 +128,8 @@ body hr {
   margin-right: 0px;
 }
 
-.storyboard-nav .sbframelist ul li.active {
-  color: #fff;
-  background: #B8B8B8;
-}
-
 .sbframe-commentary {
   width: 300px;
-  background: #fbfbfb;
-  font-size: 14px;
 }
 
 .sbframe-commentary ul {
@@ -506,297 +143,6 @@ body hr {
 .sbframe:not(.active) {
   display: none;
 }
-
-/* NAV TABS */
-
-.nav-tabs-custom > .nav-tabs {
-  margin: 0;
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 14px;
-  font-weight: 300;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}
-.nav-tabs-custom > .nav-tabs > li {
-  border-top: 3px solid transparent;
-  margin-bottom: -1px;
-  margin-right: 5px;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-  color: #666;
-  font-weight: 300;
-  font-size: 14px;
-  border-radius: 0;
-  padding: 3px 10px 5px;
-  text-transform: none;
-}
-
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
-  border-bottom-color: transparent;
-}
-
-.nav-tabs-custom > .nav-tabs > li > a.text-muted {
-  color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-  background: transparent;
-  margin: 0;
-}
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-  color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
-  border-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.active {
-  border-top-color: #3c8dbc;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a,
-.nav-tabs-custom > .nav-tabs > li.active:hover > a {
-  background-color: #fff;
-  color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a {
-  border-top-color: transparent;
-  border-left-color: #d7d7d7;
-  border-right-color: #d7d7d7;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type {
-  margin-left: 0;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
-  border-left-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs.pull-right {
-  float: none !important;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li {
-  float: right;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
-  margin-right: 0;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
-  border-left-width: 1px;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
-  border-left-color: #d7d7d7;
-  border-right-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.header {
-  line-height: 35px;
-  padding: 0 10px;
-  font-size: 20px;
-  color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.header > .fa,
-.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
-.nav-tabs-custom > .nav-tabs > li.header > .ion {
-  margin-right: 5px;
-}
-.nav-tabs-custom > .tab-content {
-  background: #fff;
-  padding: 0;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav-tabs-custom > .tab-content > .chart-wrapper {
-  background: #fff;
-  border: none;
-  margin: 0;
-}
-
-
-.nav-tabs-custom > .tab-content > .active {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav-tabs-custom .dropdown.open > a:active,
-.nav-tabs-custom .dropdown.open > a:focus {
-  background: transparent;
-  color: #999;
-}
-
-
-@media (max-width: 767px) {
-  .value-box {
-    text-align: center;
-    margin-right: 8px;
-  }
-  .value-box .icon {
-    display: none;
-  }
-}
-
-/* Fixed position sidebar */
-
-.section.sidebar {
-  position: fixed;
-  top: 51px; /* overridden by theme */
-  left: 0;
-  bottom: 0;
-  border-right: 1px solid #e2e2e2;
-  background-color: white; /* overridden by theme */
-  padding-left: 10px;
-  padding-right: 10px;
-  visibility: hidden;
-  overflow: auto;
-}
-
-.section.sidebar form p:first-child {
-  margin-top: 10px;
-}
-
-/* Embedded source code */
-
-#flexdashboard-source-code {
-  display: none;
-}
-
-.featherlight-content #flexdashboard-source-code {
-  display: inline-block;
-}
-
-.featherlight-content {
-  width: 80%;
-  max-width: 800px;
-  padding: 0 !important;
-  border-bottom: none !important;
-}
-
-.featherlight:last-of-type {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.featherlight-inner {
-  width: 100%;
-}
-
-.featherlight-content pre {
-  margin: 0;
-  border: 0;
-  background: #fff;
-  font-size: 12px;
-}
-
-.unselectable {
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-#flexdashboard-source-code code {
-  -ms-user-select: text;
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -o-user-select: text;
-  user-select: text;
-}
-
-/* DataTables Tweaks */
-
-.dataTables_filter input[type="search"] {
-  -webkit-appearance: searchfield;
-  outline: none;
-}
-
-.dataTables_wrapper.no-footer
-.dataTables_info {
-  padding-top: 0;
-}
-
-
-table.dataTable thead th {
-  border-bottom: 1px solid #d7d7d7;
-}
-
-.dataTables_wrapper.no-footer .dataTables_scrollBody {
-  border-bottom: 1px solid #d7d7d7;
-}
-
-/* Mobile phone only CSS */
-
-.desktop-layout div.section.mobile {
-  display: none;
-}
-
-.mobile-layout div.section.no-mobile {
-  display: none;
-}
-
-.mobile-figure {
-  display: none;
-}
-
-
-
-body {
-  padding-top: 60px;
-}
-
-.section.sidebar {
-  top: 51px;
-  background-color: rgba(39, 128, 227, 0.1);
-}
-
-.value-box {
-  color: #f9f9f9;
-}
-
-.bg-primary {
-  background-color: rgba(39, 128, 227, 0.7);
-}
-
-.storyboard-nav .sbframelist ul li.active {
-  background-color: rgba(39, 128, 227, 0.7);
-}
-
-.nav-tabs-custom > .nav-tabs > li.active {
-  border-top-color: rgba(39, 128, 227, 0.7);
-}
-
-.bg-info {
-  background-color: rgba(153, 84, 187, 0.7);
-}
-
-.bg-warning {
-  background-color: rgba(255, 117, 24, 0.7);
-}
-
-.bg-danger {
-  background-color: rgba(255, 0, 57, 0.7);
-}
-
-.bg-success {
-  background-color: rgba(63, 182, 24, 0.7);
-}
-
-.chart-title {
-  font-weight: 500;
-}
-
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-  font-weight: 500;
-}
-
 </style>
 
 
@@ -809,12 +155,6 @@ body {
 <div class="container-fluid">
 <div class="navbar-header">
 
-<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-
 <span class="navbar-logo pull-left">
   
 </span>
@@ -824,6 +164,12 @@ body {
     Subbagian Registrasi
     </span>
 </span>
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
 </div>
 <div id="navbar" class="navbar-collapse collapse">
@@ -1041,11 +387,13 @@ var FlexDashboard = (function () {
         for (var j = 0; j<item.items.length; j++) {
           var subItem = item.items[j];
           var li = $('<li></li>');
-          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          var a = navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target);
+          a.removeClass("nav-link").addClass("dropdown-item");
+          li.append(a);
           menu.append(li);
         }
       } else {
-        var li = $('<li></li>');
+        var li = $('<li class="nav-item"></li>');
         li.append(navbarLink(item.icon, item.title, item.href, item.target));
         container.append(li);
       }
@@ -1060,7 +408,7 @@ var FlexDashboard = (function () {
     if (existingMenu.length > 0) {
       return existingMenu.children('ul');
     } else {
-      var li = $('<li></li>');
+      var li = $('<li class="nav-item"></li>');
       if (id)
         li.attr('id', id);
       li.addClass('dropdown');
@@ -1073,6 +421,7 @@ var FlexDashboard = (function () {
       var a = navbarLink(icon, title, "#");
       a.addClass('dropdown-toggle');
       a.attr('data-toggle', 'dropdown');
+      a.attr('data-bs-toggle', 'dropdown');
       a.attr('role', 'button');
       a.attr('aria-expanded', 'false');
       li.append(a);
@@ -1090,6 +439,7 @@ var FlexDashboard = (function () {
     var id = page.attr('id');
     var icon = page.attr('data-icon');
     var navmenu = page.attr('data-navmenu');
+    var navmenuIcon = page.attr('data-navmenu-icon');
 
     // get hidden state (transfer this to navbar)
     var hidden = page.hasClass('hidden');
@@ -1108,8 +458,6 @@ var FlexDashboard = (function () {
 
     // add the tab-pane class to the wrapper
     wrapper.addClass('tab-pane');
-    if (active)
-      wrapper.addClass('active');
 
     // get a reference to the h1, discover its inner contens, then detach it
     var h1 = wrapper.find('h1').first();
@@ -1120,17 +468,24 @@ var FlexDashboard = (function () {
     var li = $('<li></li>');
     var a = navbarLink(icon, title, '#' + id);
     a.attr('data-toggle', 'tab');
+    a.attr('data-bs-toggle', 'tab');
     li.append(a);
 
     // add it to the navbar (or navbar menu if specified)
     var container = $('ul.navbar-left');
     if (navmenu) {
       var menuId = navmenu.replace(/\s+/g, '');
-      var menu = navbarMenu(menuId, null, navmenu, container);
+      var menu = navbarMenu(menuId, navmenuIcon, navmenu, container);
+      li.find("> a").removeClass("nav-link").addClass("dropdown-item");
       menu.append(li);
     } else {
+      li.addClass("nav-item")
       container.append(li);
     }
+
+    // mark active tab and corresponding nav menu item
+    if (active)
+      $(a).tab("show");
 
     // hide it if requested
     if (hidden)
@@ -1139,7 +494,7 @@ var FlexDashboard = (function () {
 
   function navbarLink(icon, title, href, target) {
 
-    var a = $('<a></a>');
+    var a = $('<a class="nav-link"></a>');
     if (icon) {
 
       // get the name of the icon set and icon
@@ -1196,8 +551,7 @@ var FlexDashboard = (function () {
 
      var serviceLinks = {
       "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
-      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
-      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(location.href),
       "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
       "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
     };
@@ -1814,7 +1168,8 @@ var FlexDashboard = (function () {
 
     // check for fade option
     var fade = tabset.hasClass("tabset-fade");
-    var navClass = "nav-tabs";
+    var pills = tabset.hasClass("tabset-pills");
+    var navClass = pills ? "nav-pills" : "nav-tabs";
 
     // determine the heading level of the tabset and tabs
     var match = tabset.attr('class').match(/level(\d) /);
@@ -1835,6 +1190,7 @@ var FlexDashboard = (function () {
     $(tabs[0]).before(tabContent);
 
     // build the tabset
+    var activeTab = 0;
     tabs.each(function(i) {
 
       // get the tab div
@@ -1842,6 +1198,10 @@ var FlexDashboard = (function () {
 
       // get the id then sanitize it for use with bootstrap tabs
       var id = tab.attr('id');
+
+      // see if this is marked as the active tab
+      if (tab.hasClass('active'))
+        activeTab = i;
 
       // sanitize the id for use with bootstrap tabs
       id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
@@ -1852,14 +1212,12 @@ var FlexDashboard = (function () {
       var headingDom = heading.contents();
 
       // build and append the tab list item
-      var a = $('<a role="tab" data-toggle="tab"></a>');
+      var a = $('<a role="tab" data-toggle="tab" data-bs-toggle="tab" class="nav-link"></a>');
       a.append(headingDom);
       a.attr('href', '#' + id);
       a.attr('aria-controls', id);
-      var li = $('<li role="presentation"></li>');
+      var li = $('<li role="presentation" class="nav-item"></li>');
       li.append(a);
-      if (i === 0)
-        li.attr('class', 'active');
       tabList.append(li);
 
       // set it's attributes
@@ -1869,15 +1227,17 @@ var FlexDashboard = (function () {
       tab.addClass('no-title');
       if (fade)
         tab.addClass('fade');
-      if (i === 0) {
-        tab.addClass('active');
-        if (fade)
-          tab.addClass('in');
-      }
 
       // move it into the tab content div
       tab.detach().appendTo(tabContent);
     });
+
+    // set active tab
+    $(tabList.children()[activeTab]).tab("show");
+    var active = $(tabContent.children('div.section')[activeTab]);
+    active.addClass('active');
+    if (fade)
+      active.addClass('in');
 
     // add nav-tabs-custom
     tabset.addClass('nav-tabs-custom');
@@ -2053,9 +1413,10 @@ var FlexDashboard = (function () {
 
     // restore tab/page from bookmark
     var hash = window.decodeURIComponent(window.location.hash);
-    if (hash.length > 0)
+    if (hash.length > 0) {
+      // Update the tab without .showPage() so that we don't change page history
       $('ul.nav a[href="' + hash + '"]').tab('show');
-    FlexDashboardUtils.manageActiveNavbarMenu();
+    }
 
     // navigate to a tab when the history changes
     window.addEventListener("popstate", function(e) {
@@ -2064,9 +1425,9 @@ var FlexDashboard = (function () {
       if (activeTab.length) {
         activeTab.tab('show');
       } else {
+        // returning to the base page URL without a hash activates first tab
         $('ul.nav a:first').tab('show');
       }
-      FlexDashboardUtils.manageActiveNavbarMenu();
     });
 
     // add a hash to the URL when the user clicks on a tab/page
@@ -2119,111 +1480,11 @@ var FlexDashboard = (function () {
     }
   }
 
-
-  // get theme color
-  var themeColors = {
-    bootstrap: {
-      primary: "rgba(51, 122, 183, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cerulean: {
-      primary: "rgb(47, 164, 231)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    journal: {
-      primary: "rgba(235, 104, 100, 0.70)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    flatly: {
-      primary: "rgba(44, 62, 80, 0.70)",
-      info: "rgba(52, 152, 219, 0.70)",
-      success: "rgba(24, 188, 156, 0.70)",
-      warning: "rgba(243, 156, 18, 0.70)",
-      danger: "rgba(231, 76, 60, 0.70)"
-    },
-    readable: {
-      primary: "rgba(69, 130, 236, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    spacelab: {
-      primary: "rgba(68, 110, 155, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    united: {
-      primary: "rgba(221, 72, 20, 0.30)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cosmo: {
-      primary: "rgba(39, 128, 227, 0.7)",
-      info: "rgba(153, 84, 187, 0.7)",
-      success: "rgba(63, 182, 24, 0.7)",
-      warning: "rgba(255, 117, 24, 0.7)",
-      danger: "rgba(255, 0, 57, 0.7)"
-    },
-    lumen: {
-      primary: "rgba(21, 140, 186, 0.70)",
-      info: "rgba(117, 202, 235, 0.90)",
-      success: "rgba(40, 182, 44, 0.70)",
-      warning: "rgba(255, 133, 27, 0.70)",
-      danger: "rgba(255, 65, 54, 0.70)"
-    },
-    paper: {
-      primary: "rgba(33, 150, 243, 0.35)",
-      info: "rgb(225, 190, 231)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(255, 224, 178)",
-      danger: "rgb(249, 189, 187)"
-    },
-    sandstone: {
-      primary: "rgba(50, 93, 136, 0.3)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    simplex: {
-      primary: "rgba(217, 35, 15, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    yeti: {
-      primary: "rgba(0, 140, 186, 0.298039)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    }
-  }
-  function themeColor(color) {
-    return themeColors[_options.theme][color];
-  }
-
   FlexDashboard.prototype = {
     constructor: FlexDashboard,
     init: init,
     isMobilePhone: isMobilePhone,
-    isFillPage: isFillPage,
-    themeColor: themeColor
+    isFillPage: isFillPage
   };
 
   return FlexDashboard;
@@ -2250,7 +1511,6 @@ window.FlexDashboardUtils = {
     setTimeout(function() {
         window.scrollTo(0, 0);
     }, 10);
-    this.manageActiveNavbarMenu();
   },
   showPage: function(href) {
     $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
@@ -2278,17 +1538,6 @@ window.FlexDashboardUtils = {
       return url.substring(hashLoc);
     else
       return "";
-  },
-  manageActiveNavbarMenu: function () {
-    // remove active from anyone currently active
-    $('.navbar ul.nav').find('li').removeClass('active');
-    // find the active tab
-    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
-    if (activeTab.length > 0) {
-      var tabId = activeTab.attr('id');
-      if (tabId)
-        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
-    }
   }
 };
 
@@ -2369,16 +1618,6 @@ window.FlexDashboardComponents.push({
 window.FlexDashboardComponents.push({
   find: function(container) {
     return container.children('div[class^="shiny-"]');
-  }
-});
-
-// datatables
-window.FlexDashboardComponents.push({
-  find: function(container) {
-    return container.find('.datatables');
-  },
-  flex: function(fillPage) {
-    return fillPage;
   }
 });
 
@@ -2550,21 +1789,6 @@ window.FlexDashboardComponents.push({
     if (chartIcon)
       setIcon(chartIcon);
 
-    // set color based on data-background if necessary
-    var dataBackground = valueBox.attr('data-background');
-    if (dataBackground)
-      valueBox.css('background-color', bgColor);
-    else {
-      // default to bg-primary if no other background is specified
-      if (!valueBox.hasClass('bg-primary') &&
-          !valueBox.hasClass('bg-info') &&
-          !valueBox.hasClass('bg-warning') &&
-          !valueBox.hasClass('bg-success') &&
-          !valueBox.hasClass('bg-danger')) {
-        valueBox.addClass('bg-primary');
-      }
-    }
-
     // handle data attributes in valueOutputSpan
     function handleValueOutput(valueOutput) {
 
@@ -2578,19 +1802,30 @@ window.FlexDashboardComponents.push({
       if (dataIcon)
         setIcon(dataIcon);
 
-      // color
+      // If valueBox(color=) was an accent color, this attr should
+      // be populated with the accent color and the relevant CSS comes
+      // in through HTML dependencies
+      var dataColorAccent = valueOutput.attr('data-color-accent');
+      var valueBoxClasses = "value-box-" + (["primary", "info", "danger", "warning", "success"].join(" value-box-"));
+      if (dataColorAccent) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.addClass('value-box-' + dataColorAccent);
+      }
+
+      // If valueBox(color=) was a CSS color, these other data-color-*
+      // attrs will be populated
       var dataColor = valueOutput.attr('data-color');
       if (dataColor) {
-        if (dataColor.indexOf('bg-') === 0) {
-          valueBox.css('background-color', '');
-          if (!valueBox.hasClass(dataColor)) {
-             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-             valueBox.addClass(dataColor);
-          }
-        } else {
-          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-          valueBox.css('background-color', dataColor);
-        }
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.css('background-color', dataColor);
+      }
+      var dataColorText = valueOutput.attr('data-color-text');
+      if (dataColorText) {
+        valueBox.find(".inner").css('color', dataColorText);
+      }
+      var dataColorIcon = valueOutput.attr('data-color-icon');
+      if (dataColorIcon) {
+        valueBox.find(".icon").css('color', dataColorIcon);
       }
 
       // url
@@ -2636,35 +1871,35 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="black">402 </span></p>
+<span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="#000000" data-color-text="#fff" data-color-icon="#0d0d0d">402 </span>
 </div>
 <div id="lulus" class="section level3 value-box">
 <h3 class="value-box">lulus</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Lulus UMM D3" data-icon="fas fa-clipboard-check" data-color="purple">205 </span></p>
+<span class="value-output" data-caption="Lulus UMM D3" data-icon="fas fa-clipboard-check" data-color="#800080" data-color-text="#fff" data-color-icon="#4d0d4d">205 </span>
 </div>
 <div id="laki-laki" class="section level3 value-box">
 <h3 class="value-box">laki-laki</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="blue">72 (35%)</span></p>
+<span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="#0000FF" data-color-text="#fff" data-color-icon="#0d0d8d">72 (35%)</span>
 </div>
 <div id="perempuan" class="section level3 value-box">
 <h3 class="value-box">perempuan</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="pink">133 (65%)</span></p>
+<span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="#FFC0CB" data-color-text="#1a1a1a" data-color-icon="#ffe0e5">133 (65%)</span>
 </div>
 <div id="maba" class="section level3 value-box">
 <h3 class="value-box">maba</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="cornflowerblue">198  ( 97 % )</span></p>
+<span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="#6495ED" data-color-text="#1a1a1a" data-color-icon="#b2caf6">198  ( 97 % )</span>
 </div>
 </div>
 <div id="row-1" class="section level2">
@@ -2674,7 +1909,7 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -2809,8 +2044,8 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div id="htmlwidget-c9e06b41dbc172a934ed" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c9e06b41dbc172a934ed">{"x":{"filter":"none","fillContainer":true,"data":[[21211308,21211311,21211346,21211371,21211467,21211492,21211499,21211519,21211540,21210214,21210249,21210295,21210298,21210301,21210346,21210347,21211427,21211500,21211526,21210205,21210213,21210230,21210269,21210274,21210294,21210309,21210384,21210387,21210415,21210438,21210441,21210455,21210459,21210474,21211333,21211460,21211469,21211566,21210210,21210237,21210255,21210283,21210286,21210292,21210311,21210318,21210345,21210373,21210394,21210402,21210407,21210467,21210469,21211480,21219644,21219651,21210223,21210282,21210299,21210307,21210314,21210317,21210337,21210338,21210339,21210371,21210372,21210388,21210395,21210406,21210447,21210481,21210498,21211367,21211514,21210293,21210304,21210401,21210431,21210436,21210439,21210476,21210500,21211316,21211535,21219580,21219596,21219599,21219604,21219641,21219665,21219677,21219725,21210217,21210246,21210265,21210322,21210385,21210466,21211426,21211522,21211549,21211574,21210275,21210327,21210374,21211315,21219617,21219627,21219638,21219660,21219746,21219748,21219565,21219566,21219568,21219591,21219594,21219672,21219696,21219702,21219707,21210785,21210850,21210956,21210959,21210970,21210996,21211002,21211011,21211021,21211023,21211032,21211036,21211044,21211049,21211054,21211062,21211075,21211103,21211134,21211136,21211158,21211159,21211162,21211165,21211167,21211174,21211189,21211210,21211212,21211242,21211244,21211251,21211256,21211272,21211274,21211286,21211287,21211288,21211294,21211297,21210794,21210811,21210835,21210837,21210843,21210877,21210891,21210900,21210905,21210918,21210948,21210964,21210986,21210989,21211001,21211034,21211046,21211079,21211096,21211098,21211104,21211118,21211124,21211135,21211186,21211216,21211220,21211237,21211247,21211269,21211290,21219759,21219808,21219908,21219935,21219945],["YULIANA FARIDATUSSOLEHAH","AHMAD ZULFIKAR SURACHMAN","DEDI ARMANDO SIREGAR","HILMI ARKAN RAMADIANSYAH","MAYCKEL DWI SETYA WAHYUDI","HIKMAL BAYUHASAN","MUHAMMAD MAMAN HIDAYAT","REZKY ARDIANSYAH","ALIFFAIRUZZAMAN","MUHAMAD ZIDAN","REGGI PATRIA","NAZWA HANIFA KAYLA","RAKA DWI NUGRAHA","ALMA SYIERA SOFIA ALMITA","MUHAMMAD BILLIE RUBIANTO","SITI ASYISYAH AZIZIYAH","MUHAMMAD GHAZA ALGHAFARI","DETA MARETA SYAH PUTRI","MUHAMMAD KAAB ARYADILLA","FEBRIANITA PUTRI SUBANDI","WANDA NOVRI HIMAWAN","FIRDA FITRIANA","VALEN  ALVIANITA","NAHAROTUL IZZA RAHMAH","PUTRI OCTAVIANI","KHAILA PRIWISASTRA FITRIASYACH","KETTY MOOR DEVEGA","ANINDA SUSILAWATI","MUHAMMAD RAIHAN ALFAUZI","FITRI NUR HARTANTI","DIMAS PRASETYA","TUBAGUS FATTUH ALTAFFALIH","MISKA NAJWA EVASINA","PUTRI PURNAMA INDAH","MOCH NOVAN ALFARSI","THERESIA LAIREN KOTTE","ALIF FITRIADI PRAMUDYA","ELIA YULIYANAH","KHOLID RAHMAN GHANY","AKMAL CHOERUDIN","MUHAMMAD MARSYA BINTANG DHIYA'ULHAQ","MUHAMMAD RIDHO HAFIIDH","DESTIA MAULIDA","NAZWA NISHA NABILA","RT. DESYIVA PRIMAH DIANI","SOFIA FISKA NANDA","AULIA RIDHA ANANTA","SORAYA HABIBAH","VIVI ARNI GUSMIARNI","DINDA ARYADINATA","INTAN BERLIANA","AMIRATUN NISA ADHWA","AKIS BAHRUL ULUM","IRHAM ALDIS BATUBARA","GERARD CHRISTIAN","JEREMY ARIYESWARA CAHAYA AGVA PUTRA","MUHAMAD ARIEF PRATAMA","ADHAM WIRA CAKRA YUDHA","MOCHAMAD IKHSAN","IQBAL BIANTY RAHMADANI","CINDY AULIA PUTRI","ASTIANNUR ARIJZAHRO AFIFAH","ACHMAD ILHAM WINADI","NABILA AUDY TRIANI KOMARA PUTRI","NURUL LIZA MAHARANI","WILDA NANDA SARI","MOHAMAD GHIFFARI ADITYA WIBAWA","NADYA AURULIA PUTRI","GIBRAN WILY SUARGANA","HESTY OCTAVIANI","TANNIA","SUCI FITRIANI","SYIFATUS SHOLIHAH ZAHRA","RONI ROHIMI","MELDA WANI SIREGAR","FELLA NURLELA","PRADNYA LUGINA TSURAYA","GISKA FEBRIANI PUTRI","WARDATUN NADYA","NIKEN ARDIANA LISTY","FIRMAN FAKHRUDIN","AHMAD HAFILUDIN","BARLIANA NUR FITRIA","MUHAMMAD DEVANDRI","FARISA AMELIA","MUHAMAD NURUL FIRDAUS","SHANDY FATUR HIDAYATULLAH","DENA DINASTY AULIA","AHMAD RAFLI RIDYASMARA","MEI YANTI BR SURBAKTI","SYAFIQ MAHIB WIJOYO","VANIA MEYLINDA ARDIANTO","YUNITA PUTRI","RISAN MARTEIN YASIN","DHEA FIRDA APRILIA","MAULIDA KUSUMAWATI","MUHAMAD CHAIRIL DAHBI","ASHWAT MAULANA PUTERA","ANGGUN AULIA YUFA PUTRI","NAUFAL ABIYYU","RATU AZIZAH","GHINA NUR AINI NAJLA","FAUZAN AZMIL KHAERI","ANDINI PUSPITASARI","FADLAN FIRMANSYAH","SITI MARLIYANI","FARHAN MAULANA","RIZQIANA ZAMSANI","AHDINI KHOIRONIKA","MUTIARA ZAKIYAH","NURJANAH","ALIIFAH KHAIRUNNISA","ARIEF RAHMAN ALFARIHIN","ROMIE RASYIDHIDAYAT","SARIAH","VENI VITRIANI","ANDINI FATRIA NINGSIH","DEWI RAHMASARI","CINDY CAHYAWARDANI","SHAFIRA RIZKA ANANDA","SITI MARWAH","AHMAD FAIZ IBADURRAHMAN","MUHAMMAD ASEP HIDAYAT","NAIVA BUDIRIYANTI","FITRIYAH","SHIFA MEGA SYLVIA","PUTRI AZZAHRA","RATU SALSABILA MUDOVIA","HANIYAH","LINDA LIDIAWATI","SALSA NADILLAH","DEA YUNNI MAULINA","MOCH. DANANG ABDUROHMAN","AGISTI FATIMATUR ROKHMAN","MITA JUWITA","RISKA KOMALA","ALIN AGUSTINA","SITI ISNAINI HANUUN","AS SYIFA LESTARI","AFNI MANINGSIH","BINTANG RAMADHAN NUGRAHA","UKHWAH","ABDUL KOHAR JAELANI","MOCHAMMAD FADLILLAH DZIKRIE","SITI ROHMAH","SIKE RAMUDI DAMAYANTI","JIHAN FATIHAH","RIDHA ARSY ASAURA","KAMAL ZAKIY DHIYAUDDIN","NURUL FADILAH","MAFTUHI","WULAN PIANA","INTAN","PIPIT ULANDARI","HERDINA HAPPY APRILIA","MUHAMAD SAHRUL RAMDHANI","DEDE UPIK KURNIAWATI","AYU WULANDARI","DEVI","LISA MAHARANI","LISSA SILSILA MARTINI","IRPAN MAULANA","DEA KLARA SASKIAH","AI FITRI PERMATASARI","DHISA KHAIRINA NURZAKIA","CICIH AGUSTIN","MUHAMAD ALFIN AFRIZAL","TRIA SUCHI RAHAYU","MUHAMAD RIZQI AGUSTIAN","DYANA PUTRI HANIFA","SHAVINA ZULFA ZAIMA","WINA MEYDINA","FAJAR MUHAMAD RIFQI","WILDAN PADILAH","IMAS HUROH","ADLIYA SYAZA MUDRIKAH","MUHAMMAD AZIZ MAULANA","TIARA LUSITA ANDANI","HAYATI NUFUS","ABDUL MAJID","NABILA ANANDA GUNAWAN PUTRI","SALMA SALSABIILA","GABRIELA MARTA TAMBA","LAURA AMALIAH","MAGFIROH","KEZYA ANGELYNE SILAEN","MEFIA RAHMANI","OCTAVIANI AULIA PUTRI","PUTRI KHULIL ZANNAH","RINJANI","VINA TAZKIYATUL UMAH","ISTIQOMAH","SYAHRIZAL JUNIAR AKMAL","REIHAN AGISTIARA","GENIA OKTA ARDITA","YANTI AGUSTINA","DENDI RAHMATULLOH","JASMINE NURUL AULIA"],["P","L","L","L","L","L","L","L","L","L","L","P","L","P","L","P","L","P","L","P","P","P","P","P","P","P","P","P","L","P","L","L","P","P","L","P","L","P","L","L","L","L","P","P","P","P","P","P","P","P","P","P","L","L","L","L","L","L","L","L","P","P","L","P","P","P","L","P","L","P","P","P","P","L","P","P","P","P","P","P","L","L","P","L","P","L","L","L","L","P","L","P","P","L","P","P","L","L","P","L","P","P","L","P","L","P","L","P","P","P","P","P","L","L","P","P","P","P","P","P","P","L","L","P","P","P","P","P","P","P","P","P","L","P","P","P","P","P","P","P","L","P","L","L","P","P","P","P","L","P","L","P","P","P","P","L","P","P","P","P","P","L","P","P","P","P","L","P","L","P","P","P","L","L","P","P","L","P","P","L","P","P","P","P","P","P","P","P","P","P","P","P","L","P","P","P","L","P"],["PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERBANKAN DAN KEUANGAN","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","PERBANKAN DAN KEUANGAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","AKUNTANSI D3","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","AKUNTANSI D3","AKUNTANSI D3","AKUNTANSI D3","AKUNTANSI D3","PERPAJAKAN","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERPAJAKAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERPAJAKAN","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6cc9be0329c6a5d4662d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6cc9be0329c6a5d4662d">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[[21211308,21211311,21211346,21211371,21211467,21211492,21211499,21211519,21211540,21210214,21210249,21210295,21210298,21210301,21210346,21210347,21211427,21211500,21211526,21210205,21210213,21210230,21210269,21210274,21210294,21210309,21210384,21210387,21210415,21210438,21210441,21210455,21210459,21210474,21211333,21211460,21211469,21211566,21210210,21210237,21210255,21210283,21210286,21210292,21210311,21210318,21210345,21210373,21210394,21210402,21210407,21210467,21210469,21211480,21219644,21219651,21210223,21210282,21210299,21210307,21210314,21210317,21210337,21210338,21210339,21210371,21210372,21210388,21210395,21210406,21210447,21210481,21210498,21211367,21211514,21210293,21210304,21210401,21210431,21210436,21210439,21210476,21210500,21211316,21211535,21219580,21219596,21219599,21219604,21219641,21219665,21219677,21219725,21210217,21210246,21210265,21210322,21210385,21210466,21211426,21211522,21211549,21211574,21210275,21210327,21210374,21211315,21219617,21219627,21219638,21219660,21219746,21219748,21219565,21219566,21219568,21219591,21219594,21219672,21219696,21219702,21219707,21210785,21210850,21210956,21210959,21210970,21210996,21211002,21211011,21211021,21211023,21211032,21211036,21211044,21211049,21211054,21211062,21211075,21211103,21211134,21211136,21211158,21211159,21211162,21211165,21211167,21211174,21211189,21211210,21211212,21211242,21211244,21211251,21211256,21211272,21211274,21211286,21211287,21211288,21211294,21211297,21210794,21210811,21210835,21210837,21210843,21210877,21210891,21210900,21210905,21210918,21210948,21210964,21210986,21210989,21211001,21211034,21211046,21211079,21211096,21211098,21211104,21211118,21211124,21211135,21211186,21211216,21211220,21211237,21211247,21211269,21211290,21219759,21219808,21219908,21219935,21219945],["YULIANA FARIDATUSSOLEHAH","AHMAD ZULFIKAR SURACHMAN","DEDI ARMANDO SIREGAR","HILMI ARKAN RAMADIANSYAH","MAYCKEL DWI SETYA WAHYUDI","HIKMAL BAYUHASAN","MUHAMMAD MAMAN HIDAYAT","REZKY ARDIANSYAH","ALIFFAIRUZZAMAN","MUHAMAD ZIDAN","REGGI PATRIA","NAZWA HANIFA KAYLA","RAKA DWI NUGRAHA","ALMA SYIERA SOFIA ALMITA","MUHAMMAD BILLIE RUBIANTO","SITI ASYISYAH AZIZIYAH","MUHAMMAD GHAZA ALGHAFARI","DETA MARETA SYAH PUTRI","MUHAMMAD KAAB ARYADILLA","FEBRIANITA PUTRI SUBANDI","WANDA NOVRI HIMAWAN","FIRDA FITRIANA","VALEN  ALVIANITA","NAHAROTUL IZZA RAHMAH","PUTRI OCTAVIANI","KHAILA PRIWISASTRA FITRIASYACH","KETTY MOOR DEVEGA","ANINDA SUSILAWATI","MUHAMMAD RAIHAN ALFAUZI","FITRI NUR HARTANTI","DIMAS PRASETYA","TUBAGUS FATTUH ALTAFFALIH","MISKA NAJWA EVASINA","PUTRI PURNAMA INDAH","MOCH NOVAN ALFARSI","THERESIA LAIREN KOTTE","ALIF FITRIADI PRAMUDYA","ELIA YULIYANAH","KHOLID RAHMAN GHANY","AKMAL CHOERUDIN","MUHAMMAD MARSYA BINTANG DHIYA'ULHAQ","MUHAMMAD RIDHO HAFIIDH","DESTIA MAULIDA","NAZWA NISHA NABILA","RT. DESYIVA PRIMAH DIANI","SOFIA FISKA NANDA","AULIA RIDHA ANANTA","SORAYA HABIBAH","VIVI ARNI GUSMIARNI","DINDA ARYADINATA","INTAN BERLIANA","AMIRATUN NISA ADHWA","AKIS BAHRUL ULUM","IRHAM ALDIS BATUBARA","GERARD CHRISTIAN","JEREMY ARIYESWARA CAHAYA AGVA PUTRA","MUHAMAD ARIEF PRATAMA","ADHAM WIRA CAKRA YUDHA","MOCHAMAD IKHSAN","IQBAL BIANTY RAHMADANI","CINDY AULIA PUTRI","ASTIANNUR ARIJZAHRO AFIFAH","ACHMAD ILHAM WINADI","NABILA AUDY TRIANI KOMARA PUTRI","NURUL LIZA MAHARANI","WILDA NANDA SARI","MOHAMAD GHIFFARI ADITYA WIBAWA","NADYA AURULIA PUTRI","GIBRAN WILY SUARGANA","HESTY OCTAVIANI","TANNIA","SUCI FITRIANI","SYIFATUS SHOLIHAH ZAHRA","RONI ROHIMI","MELDA WANI SIREGAR","FELLA NURLELA","PRADNYA LUGINA TSURAYA","GISKA FEBRIANI PUTRI","WARDATUN NADYA","NIKEN ARDIANA LISTY","FIRMAN FAKHRUDIN","AHMAD HAFILUDIN","BARLIANA NUR FITRIA","MUHAMMAD DEVANDRI","FARISA AMELIA","MUHAMAD NURUL FIRDAUS","SHANDY FATUR HIDAYATULLAH","DENA DINASTY AULIA","AHMAD RAFLI RIDYASMARA","MEI YANTI BR SURBAKTI","SYAFIQ MAHIB WIJOYO","VANIA MEYLINDA ARDIANTO","YUNITA PUTRI","RISAN MARTEIN YASIN","DHEA FIRDA APRILIA","MAULIDA KUSUMAWATI","MUHAMAD CHAIRIL DAHBI","ASHWAT MAULANA PUTERA","ANGGUN AULIA YUFA PUTRI","NAUFAL ABIYYU","RATU AZIZAH","GHINA NUR AINI NAJLA","FAUZAN AZMIL KHAERI","ANDINI PUSPITASARI","FADLAN FIRMANSYAH","SITI MARLIYANI","FARHAN MAULANA","RIZQIANA ZAMSANI","AHDINI KHOIRONIKA","MUTIARA ZAKIYAH","NURJANAH","ALIIFAH KHAIRUNNISA","ARIEF RAHMAN ALFARIHIN","ROMIE RASYIDHIDAYAT","SARIAH","VENI VITRIANI","ANDINI FATRIA NINGSIH","DEWI RAHMASARI","CINDY CAHYAWARDANI","SHAFIRA RIZKA ANANDA","SITI MARWAH","AHMAD FAIZ IBADURRAHMAN","MUHAMMAD ASEP HIDAYAT","NAIVA BUDIRIYANTI","FITRIYAH","SHIFA MEGA SYLVIA","PUTRI AZZAHRA","RATU SALSABILA MUDOVIA","HANIYAH","LINDA LIDIAWATI","SALSA NADILLAH","DEA YUNNI MAULINA","MOCH. DANANG ABDUROHMAN","AGISTI FATIMATUR ROKHMAN","MITA JUWITA","RISKA KOMALA","ALIN AGUSTINA","SITI ISNAINI HANUUN","AS SYIFA LESTARI","AFNI MANINGSIH","BINTANG RAMADHAN NUGRAHA","UKHWAH","ABDUL KOHAR JAELANI","MOCHAMMAD FADLILLAH DZIKRIE","SITI ROHMAH","SIKE RAMUDI DAMAYANTI","JIHAN FATIHAH","RIDHA ARSY ASAURA","KAMAL ZAKIY DHIYAUDDIN","NURUL FADILAH","MAFTUHI","WULAN PIANA","INTAN","PIPIT ULANDARI","HERDINA HAPPY APRILIA","MUHAMAD SAHRUL RAMDHANI","DEDE UPIK KURNIAWATI","AYU WULANDARI","DEVI","LISA MAHARANI","LISSA SILSILA MARTINI","IRPAN MAULANA","DEA KLARA SASKIAH","AI FITRI PERMATASARI","DHISA KHAIRINA NURZAKIA","CICIH AGUSTIN","MUHAMAD ALFIN AFRIZAL","TRIA SUCHI RAHAYU","MUHAMAD RIZQI AGUSTIAN","DYANA PUTRI HANIFA","SHAVINA ZULFA ZAIMA","WINA MEYDINA","FAJAR MUHAMAD RIFQI","WILDAN PADILAH","IMAS HUROH","ADLIYA SYAZA MUDRIKAH","MUHAMMAD AZIZ MAULANA","TIARA LUSITA ANDANI","HAYATI NUFUS","ABDUL MAJID","NABILA ANANDA GUNAWAN PUTRI","SALMA SALSABIILA","GABRIELA MARTA TAMBA","LAURA AMALIAH","MAGFIROH","KEZYA ANGELYNE SILAEN","MEFIA RAHMANI","OCTAVIANI AULIA PUTRI","PUTRI KHULIL ZANNAH","RINJANI","VINA TAZKIYATUL UMAH","ISTIQOMAH","SYAHRIZAL JUNIAR AKMAL","REIHAN AGISTIARA","GENIA OKTA ARDITA","YANTI AGUSTINA","DENDI RAHMATULLOH","JASMINE NURUL AULIA"],["P","L","L","L","L","L","L","L","L","L","L","P","L","P","L","P","L","P","L","P","P","P","P","P","P","P","P","P","L","P","L","L","P","P","L","P","L","P","L","L","L","L","P","P","P","P","P","P","P","P","P","P","L","L","L","L","L","L","L","L","P","P","L","P","P","P","L","P","L","P","P","P","P","L","P","P","P","P","P","P","L","L","P","L","P","L","L","L","L","P","L","P","P","L","P","P","L","L","P","L","P","P","L","P","L","P","L","P","P","P","P","P","L","L","P","P","P","P","P","P","P","L","L","P","P","P","P","P","P","P","P","P","L","P","P","P","P","P","P","P","L","P","L","L","P","P","P","P","L","P","L","P","P","P","P","L","P","P","P","P","P","L","P","P","P","P","L","P","L","P","P","P","L","L","P","P","L","P","P","L","P","P","P","P","P","P","P","P","P","P","P","P","L","P","P","P","L","P"],["PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERBANKAN DAN KEUANGAN","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","PERBANKAN DAN KEUANGAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","AKUNTANSI D3","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","AKUNTANSI D3","AKUNTANSI D3","AKUNTANSI D3","AKUNTANSI D3","PERPAJAKAN","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERPAJAKAN","PERPAJAKAN","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","PERPAJAKAN","PERPAJAKAN","AKUNTANSI D3","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERPAJAKAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","PERPAJAKAN","PERBANKAN DAN KEUANGAN","PERBANKAN DAN KEUANGAN","AKUNTANSI D3","PERBANKAN DAN KEUANGAN","MANAJEMEN PEMASARAN (D3)","MANAJEMEN PEMASARAN (D3)","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3","KEPERAWATAN D3"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0},{"name":"No Pendaftaran","targets":0},{"name":"Nama","targets":1},{"name":"Jenis Kelamin","targets":2},{"name":"Program Studi","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -2823,35 +2058,35 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="black">21 </span></p>
+<span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="#000000" data-color-text="#fff" data-color-icon="#0d0d0d">21 </span>
 </div>
 <div id="lulus-1" class="section level3 value-box">
 <h3 class="value-box">lulus</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Lulus JAJ" data-icon="fas fa-clipboard-check" data-color="purple">18 </span></p>
+<span class="value-output" data-caption="Lulus JAJ" data-icon="fas fa-clipboard-check" data-color="#800080" data-color-text="#fff" data-color-icon="#4d0d4d">18 </span>
 </div>
 <div id="laki-laki-1" class="section level3 value-box">
 <h3 class="value-box">laki-laki</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="blue">3 (17%)</span></p>
+<span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="#0000FF" data-color-text="#fff" data-color-icon="#0d0d8d">3 (17%)</span>
 </div>
 <div id="perempuan-1" class="section level3 value-box">
 <h3 class="value-box">perempuan</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="pink">15 (83%)</span></p>
+<span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="#FFC0CB" data-color-text="#1a1a1a" data-color-icon="#ffe0e5">15 (83%)</span>
 </div>
 <div id="maba-1" class="section level3 value-box">
 <h3 class="value-box">maba</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="cornflowerblue">18  ( 100 % )</span></p>
+<span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="#6495ED" data-color-text="#1a1a1a" data-color-icon="#b2caf6">18  ( 100 % )</span>
 </div>
 </div>
 <div id="row-4" class="section level2">
@@ -2861,7 +2096,7 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -2940,13 +2175,14 @@ Total
 </div>
 <div id="row-5" class="section level2">
 <h2>Row</h2>
-<div id="daftar-nama-mahasiswa-baru-jalur-alih-jenjang" class="section level3">
+<div id="daftar-nama-mahasiswa-baru-jalur-alih-jenjang"
+class="section level3">
 <h3><strong>Daftar nama Mahasiswa Baru Jalur Alih Jenjang</strong></h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div id="htmlwidget-c22a405339ebd44e057c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c22a405339ebd44e057c">{"x":{"filter":"none","fillContainer":true,"data":[[21310163,21310332,21310363,21310458,21310496,21310511,21310562,21310593,21317632,21317730,21317789,21317857,21317981,21318037,21318099,21318123,21318245,21310563],["INDAH PERMATASARI","DWIKI DYAH RETNO KINANTI","UNTUNG BOY S","ABDUL AZIS SOLEHUDIN","RICKY NUR FAZRIL","ERICKA DIAN SAPHIRA","NADIRA ZULFI DWI WIJAYA","NISRINA NABILA BUDIYANI","ANNISYA NURUL FIRDAUS","ADELIA VIRA NAVYA NINGTYAS","SUNENTI","DIFFA AYOMI MAYAPA","AZZAHRA NURUL RAMADHANTI","AGITA SUCI NAHARANI","WANDA AZIZAH HAETI SURYANTO","DESTI CHAERUNNISA","NIA KARMILAH","ALYA AMMAR"],["P","P","L","L","L","P","P","P","P","P","P","P","P","P","P","P","P","P"],["AKUNTANSI","MANAJEMEN","AKUNTANSI","MANAJEMEN","MANAJEMEN","MANAJEMEN","MANAJEMEN","AKUNTANSI","AKUNTANSI","MANAJEMEN","MANAJEMEN","AKUNTANSI","MANAJEMEN","AKUNTANSI","MANAJEMEN","MANAJEMEN","MANAJEMEN","MANAJEMEN"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-049e7da57dd222d5fd4d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-049e7da57dd222d5fd4d">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[[21310163,21310332,21310363,21310458,21310496,21310511,21310562,21310593,21317632,21317730,21317789,21317857,21317981,21318037,21318099,21318123,21318245,21310563],["INDAH PERMATASARI","DWIKI DYAH RETNO KINANTI","UNTUNG BOY S","ABDUL AZIS SOLEHUDIN","RICKY NUR FAZRIL","ERICKA DIAN SAPHIRA","NADIRA ZULFI DWI WIJAYA","NISRINA NABILA BUDIYANI","ANNISYA NURUL FIRDAUS","ADELIA VIRA NAVYA NINGTYAS","SUNENTI","DIFFA AYOMI MAYAPA","AZZAHRA NURUL RAMADHANTI","AGITA SUCI NAHARANI","WANDA AZIZAH HAETI SURYANTO","DESTI CHAERUNNISA","NIA KARMILAH","ALYA AMMAR"],["P","P","L","L","L","P","P","P","P","P","P","P","P","P","P","P","P","P"],["AKUNTANSI","MANAJEMEN","AKUNTANSI","MANAJEMEN","MANAJEMEN","MANAJEMEN","MANAJEMEN","AKUNTANSI","AKUNTANSI","MANAJEMEN","MANAJEMEN","AKUNTANSI","MANAJEMEN","AKUNTANSI","MANAJEMEN","MANAJEMEN","MANAJEMEN","MANAJEMEN"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0},{"name":"No Pendaftaran","targets":0},{"name":"Nama","targets":1},{"name":"Jenis Kelamin","targets":2},{"name":"Program Studi","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -2959,35 +2195,35 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="black">43 </span></p>
+<span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="#000000" data-color-text="#fff" data-color-icon="#0d0d0d">43 </span>
 </div>
 <div id="lulus-2" class="section level3 value-box">
 <h3 class="value-box">lulus</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Lulus JAJ" data-icon="fas fa-clipboard-check" data-color="purple">40 </span></p>
+<span class="value-output" data-caption="Lulus JAJ" data-icon="fas fa-clipboard-check" data-color="#800080" data-color-text="#fff" data-color-icon="#4d0d4d">40 </span>
 </div>
 <div id="laki-laki-2" class="section level3 value-box">
 <h3 class="value-box">laki-laki</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="blue">8 (20%)</span></p>
+<span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="#0000FF" data-color-text="#fff" data-color-icon="#0d0d8d">8 (20%)</span>
 </div>
 <div id="perempuan-2" class="section level3 value-box">
 <h3 class="value-box">perempuan</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="pink">32 (80%)</span></p>
+<span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="#FFC0CB" data-color-text="#1a1a1a" data-color-icon="#ffe0e5">32 (80%)</span>
 </div>
 <div id="maba-2" class="section level3 value-box">
 <h3 class="value-box">maba</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="cornflowerblue">40  ( 100 % )</span></p>
+<span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="#6495ED" data-color-text="#1a1a1a" data-color-icon="#b2caf6">40  ( 100 % )</span>
 </div>
 </div>
 <div id="row-7" class="section level2">
@@ -2997,7 +2233,7 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -3433,13 +2669,14 @@ Total
 </div>
 <div id="row-8" class="section level2">
 <h2>Row</h2>
-<div id="daftar-nama-mahasiswa-baru-jalur-alih-jenjang-1" class="section level3">
+<div id="daftar-nama-mahasiswa-baru-jalur-alih-jenjang-1"
+class="section level3">
 <h3><strong>Daftar nama Mahasiswa Baru Jalur Alih Jenjang</strong></h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div id="htmlwidget-fa604f52554ff7ce7fd4" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa604f52554ff7ce7fd4">{"x":{"filter":"none","fillContainer":true,"data":[[1001121310,1001121318,1005121341,1005121351,1007121338,1007121447,1813121303,2121322,3601121304,3601121305,3601121308,3601121310,3601121314,3601121315,3601121317,3601121318,3601121336,3601121337,3601121340,3601121342,3601121344,3601121345,3602121316,3602121322,3602121326,3602121327,3602121337,3602121339,3602121340,3602121341,3602121344,3602121345,3602121348,9105121317,9128121354,9271121383,9101121011,9171121139,9205121309,9207121320],["BUSH GODSEND BURWOS","ALISA SIRUA","BRIGITHA GRACIANA HINDOM","KEIZYA VALENCIA CHEALSE KAMBUAYA","ANDI RAHMADANI","MOHD. NIZAM BIN ALDI","DEVI AMELIA","DUMA SALU","SALMA NURAFRIDA","PUTRY MAHARANI ADILLAH","PIPIN","SITI ROHMAH","ISTI YULIANTI","NELY NURBANINGSIH","AINUL MARDIYAH","SITI NURAENI","KARAR THAHARA","AYU YUNINGSIH","MILA MAULIDA","JESSICA STEVINA","SALSABIL NAJWA AZHARI","MOHAMMAD ARYO","NENENG HOFIFAH","RISMA","DEDE WIRTA","SUKIRA","ELIS","WINDA AZZAHRA NURHALIZA","CICIH SARININGSIH","EEM HULAEMAH","OKTAVIANA WULANDARI","FARAH ZAHIDA","RAMAH NUR INTAN","DANIEL MANSAI","YOHANES TEKEGE","ELEN SIONITHA JITMAU","ANGELICHA CHRISTINA","LINDA RUT MANYAKORI","SUSNI GAMAN","YULIANTO OMEGA SANOY"],["L","P","P","P","L","L","P","P","P","P","P","P","P","P","P","P","P","P","P","P","P","L","P","P","P","P","P","P","P","P","P","P","P","L","L","P","P","P","L","L"],["PENDIDIKAN SOSIOLOGI","PENDIDIKAN FISIKA","PENDIDIKAN SOSIOLOGI","PENDIDIKAN SOSIOLOGI","AGROEKOTEKNOLOGI","ILMU KOMUNIKASI","ILMU KOMUNIKASI","AGRIBISNIS","PENDIDIKAN BIOLOGI","PENDIDIKAN SEJARAH","PENDIDIKAN MATEMATIKA","PENDIDIKAN SOSIOLOGI","PENDIDIKAN BAHASA INDONESIA (S1)","PENDIDIKAN MATEMATIKA","AKUNTANSI","HUKUM (S1)","ILMU PEMERINTAHAN","PENDIDIKAN MATEMATIKA","ILMU EKONOMI PEMBANGUNAN","ILMU KOMUNIKASI","PENDIDIKAN BAHASA INDONESIA (S1)","TEKNIK INDUSTRI","MANAJEMEN","PENDIDIKAN KHUSUS","PENDIDIKAN VOKASIONAL TEKNIK ELEKTRO","PENDIDIKAN VOKASIONAL TEKNIK ELEKTRO","MANAJEMEN","MANAJEMEN","AKUNTANSI","AKUNTANSI","ADMINISTRASI PUBLIK","TEKNOLOGI PANGAN","PENDIDIKAN GURU SEKOLAH DASAR","PENDIDIKAN BAHASA INGGRIS","MANAJEMEN","AGRIBISNIS","ILMU EKONOMI PEMBANGUNAN","HUKUM (S1)","ILMU KEOLAHRAGAAN","KEPERAWATAN"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7b2636de37cbc7fca1e3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7b2636de37cbc7fca1e3">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[[1001121310,1001121318,1005121341,1005121351,1007121338,1007121447,1813121303,2121322,3601121304,3601121305,3601121308,3601121310,3601121314,3601121315,3601121317,3601121318,3601121336,3601121337,3601121340,3601121342,3601121344,3601121345,3602121316,3602121322,3602121326,3602121327,3602121337,3602121339,3602121340,3602121341,3602121344,3602121345,3602121348,9105121317,9128121354,9271121383,9101121011,9171121139,9205121309,9207121320],["BUSH GODSEND BURWOS","ALISA SIRUA","BRIGITHA GRACIANA HINDOM","KEIZYA VALENCIA CHEALSE KAMBUAYA","ANDI RAHMADANI","MOHD. NIZAM BIN ALDI","DEVI AMELIA","DUMA SALU","SALMA NURAFRIDA","PUTRY MAHARANI ADILLAH","PIPIN","SITI ROHMAH","ISTI YULIANTI","NELY NURBANINGSIH","AINUL MARDIYAH","SITI NURAENI","KARAR THAHARA","AYU YUNINGSIH","MILA MAULIDA","JESSICA STEVINA","SALSABIL NAJWA AZHARI","MOHAMMAD ARYO","NENENG HOFIFAH","RISMA","DEDE WIRTA","SUKIRA","ELIS","WINDA AZZAHRA NURHALIZA","CICIH SARININGSIH","EEM HULAEMAH","OKTAVIANA WULANDARI","FARAH ZAHIDA","RAMAH NUR INTAN","DANIEL MANSAI","YOHANES TEKEGE","ELEN SIONITHA JITMAU","ANGELICHA CHRISTINA","LINDA RUT MANYAKORI","SUSNI GAMAN","YULIANTO OMEGA SANOY"],["L","P","P","P","L","L","P","P","P","P","P","P","P","P","P","P","P","P","P","P","P","L","P","P","P","P","P","P","P","P","P","P","P","L","L","P","P","P","L","L"],["PENDIDIKAN SOSIOLOGI","PENDIDIKAN FISIKA","PENDIDIKAN SOSIOLOGI","PENDIDIKAN SOSIOLOGI","AGROEKOTEKNOLOGI","ILMU KOMUNIKASI","ILMU KOMUNIKASI","AGRIBISNIS","PENDIDIKAN BIOLOGI","PENDIDIKAN SEJARAH","PENDIDIKAN MATEMATIKA","PENDIDIKAN SOSIOLOGI","PENDIDIKAN BAHASA INDONESIA (S1)","PENDIDIKAN MATEMATIKA","AKUNTANSI","HUKUM (S1)","ILMU PEMERINTAHAN","PENDIDIKAN MATEMATIKA","ILMU EKONOMI PEMBANGUNAN","ILMU KOMUNIKASI","PENDIDIKAN BAHASA INDONESIA (S1)","TEKNIK INDUSTRI","MANAJEMEN","PENDIDIKAN KHUSUS","PENDIDIKAN VOKASIONAL TEKNIK ELEKTRO","PENDIDIKAN VOKASIONAL TEKNIK ELEKTRO","MANAJEMEN","MANAJEMEN","AKUNTANSI","AKUNTANSI","ADMINISTRASI PUBLIK","TEKNOLOGI PANGAN","PENDIDIKAN GURU SEKOLAH DASAR","PENDIDIKAN BAHASA INGGRIS","MANAJEMEN","AGRIBISNIS","ILMU EKONOMI PEMBANGUNAN","HUKUM (S1)","ILMU KEOLAHRAGAAN","KEPERAWATAN"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0},{"name":"No Pendaftaran","targets":0},{"name":"Nama","targets":1},{"name":"Jenis Kelamin","targets":2},{"name":"Program Studi","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -3452,35 +2689,35 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="black">589 </span></p>
+<span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="#000000" data-color-text="#fff" data-color-icon="#0d0d0d">589 </span>
 </div>
 <div id="lulus-3" class="section level3 value-box">
 <h3 class="value-box">lulus</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Lulus Seleksi S2" data-icon="fas fa-clipboard-check" data-color="purple">328 </span></p>
+<span class="value-output" data-caption="Lulus Seleksi S2" data-icon="fas fa-clipboard-check" data-color="#800080" data-color-text="#fff" data-color-icon="#4d0d4d">328 </span>
 </div>
 <div id="laki-laki-3" class="section level3 value-box">
 <h3 class="value-box">laki-laki</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="blue">158 (48%)</span></p>
+<span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="#0000FF" data-color-text="#fff" data-color-icon="#0d0d8d">158 (48%)</span>
 </div>
 <div id="perempuan-3" class="section level3 value-box">
 <h3 class="value-box">perempuan</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="pink">170 (52%)</span></p>
+<span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="#FFC0CB" data-color-text="#1a1a1a" data-color-icon="#ffe0e5">170 (52%)</span>
 </div>
 <div id="maba-3" class="section level3 value-box">
 <h3 class="value-box">maba</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="cornflowerblue">306  ( 93 % )</span></p>
+<span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="#6495ED" data-color-text="#1a1a1a" data-color-icon="#b2caf6">306  ( 93 % )</span>
 </div>
 </div>
 <div id="row-10" class="section level2">
@@ -3490,7 +2727,7 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -3767,8 +3004,8 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div id="htmlwidget-84600c5c408fb4264ef9" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-84600c5c408fb4264ef9">{"x":{"filter":"none","fillContainer":true,"data":[[21125317,21125382,21125431,21125485,21125556,21125654,21125688,21125780,21125903,21125210,21125229,21125281,21125472,21125473,21125854,21125873,21125931,21125966,21126014,21125217,21125430,21125524,21125640,21125648,21125711,21125832,21125836,21126063,21125106,21125143,21125170,21125408,21125566,21125662,21125843,21126003,21126056,21125196,21125280,21125395,21125480,21125598,21125862,21125982,21126078,21126084,21125261,21125407,21125492,21125554,21125657,21125833,21125218,21125228,21125339,21125346,21125645,21125680,21125799,21125923,21126073,21125159,21125234,21125378,21125413,21125639,21125857,21125967,21126066,21125310,21125414,21125525,21125583,21125612,21125671,21125978,21126038,21125160,21125582,21125653,21125748,21125792,21125860,21126146,21126162,21126254,21125559,21125682,21125714,21125813,21126032,21126237,21126262,21126264,21126270,21126323,21125299,21125790,21125801,21126085,21126104,21126125,21126127,21126199,21125284,21125327,21125717,21125983,21126114,21126122,21126128,21126167,21126268,21126322,21126339,21126351,21126387,21125089,21125093,21125149,21125248,21125279,21125348,21125366,21125385,21125509,21125526,21125547,21125600,21125602,21125608,21125666,21125676,21125902,21126050,21126175,21126201,21126298,21126304,21125169,21125312,21125444,21125555,21125718,21125867,21125875,21125906,21126000,21126046,21125177,21125241,21125290,21125355,21125360,21125375,21125469,21125739,21125802,21126083,21125386,21125441,21125458,21125603,21125613,21125673,21125698,21125729,21125926,21125938,21110345,21110490,21110660,21111347,21111409,21111610,21111768,21111770,21111780,21111880,21110043,21110181,21110598,21110608,21110832,21110862,21111211,21111684,21111712,21111800,21110251,21110258,21110281,21111254,21111274,21111478,21111633,21111634,21111694,21111837,21110219,21110227,21110516,21110556,21110782,21110876,21110880,21110890,21111198,21111477,21110234,21110274,21110282,21110571,21110678,21110749,21110778,21111466,21111721,21111848,21110320,21110592,21110707,21110834,21110900,21111389,21111521,21111635,21111912,21110045,21110057,21110648,21110727,21111977,21110185,21110249,21110474,21111375,21111437,21111534,21111831,21111968,21110334,21110443,21110567,21110686,21110785,21110945,21111066,21111268,21111422,21110050,21110178,21110538,21110977,21111508,21111557,21111561,21111745,21110333,21110638,21111142,21111387,21110059,21110187,21110599,21110779,21110898,21111131,21111490,21111835,21110092,21110580,21110731,21111391,21111392,21111722,21111756,21111765,21111787,21110154,21110203,21110559,21111017,21111036,21111136,21111210,21111296,21111418,21111450,21110010,21110140,21110161,21110247,21110967,21110979,21111909,21111936,21111985,21110197,21110336,21110679,21110692,21111212,21111483,21111488,21111589],["RATU TIARA SAVIRA","BETI WIDIASTUTI","ERMIA FAYANA","ACHMAD SIROJ","IRFAN ABDURRAHMAN","HANIFAH FAJRIANI","AJAT SUDRAJAT","SYEILA MUTIE, S.M.","BINA MANDIRI ZEN","INKI RIZQIA","PINKAN NAHRUL HAKIM","MUHAMMAD MARFAD RIVARDI","MUKHAMAD WAHYU KUSWANTORO","MOCHAMAD ALVIN FIKRI","DEBBY NURIMAN","NURMAN ABDUL HAKIM","NUNGKY RUSLANDY","FATHURROHMAN HAKIM","HENDI ISWANTO, S.PD.T","RISKIANI","DADANG SUTISNA","LIA YULIA","NURFITRI","RISA PUSVITASARI","HETI SUHAETI","KARSIKAH","MOHAMAD DANAR HIDAYAH","KURNAENGSIH","SITI ROHAYATI","FITRI FIANINGRUM","MACARIUS ERWIN YUWONO KRISTANTO","NOVA RIZKA FAUZY","A'RIF ROKHMAN","MUHAMMAD NAUFAL LUQMANULHAKIM","INTAN FATIMAH","DERA ALFIANI","EKA KURNIASARI","ABDURROHMAN","IKA KURNIATI","MUTIARA PUSPITA SARI","MAHPUDIN","ACHMAD YUDHA","RM. YUDHA PRATAMA, S.H","TIAMILLA, SH","AHMAD GHOZALI","DEISI MAGDALENA GULTOM","ARIES PRATAMA PUTRA","AWAN DHARMAWAN","INDAH PUSPARANI","MULYANI PRATIWI SW","ANTA WIGUNA","WINDA WULANDARI","FITRI NURAISAH","YOPI ILHAM AKBAR PUTRA","VANI VAULIYANTI","MUHAMAD SUPRONI","IRA HERYANI, ST","SYIROJUL UMAM R.A","CATUR WIJAYANTI","FEBRIN HELENA","ARYA KUSUMA HIDAYANTO","INTI AMALIAH","AHMAD UFUWAN","JHON MARTHIN","ELIZABETH RIZKA DA LOPEZ","SANDY PRAYOGA","WILY MOCHAMAD IQBAL, S.STP","ENGELIN KAMEA, SH","IIP MUALIP S.PD","RESTIE EMILLIA FERDIAN","AMANDA KENSHI NURFITRI","IKE RACHMAWATI","KUNTO TRIHATMOJO, SH.","HASHFI SOEMBAGA, S.STP","LISTIA AULIA INDY","MAHFUDOH","UWES HERMAWAN","AHMAD HILAL FAUZI","RADEN RARA EVI OKTAVIANI S","BUDI SUHENDRA","HOLISAH","SONI CANDRA","ROSIANA","RIZA NURFIDIA FEBRIANTI, S.E","NUKE VIRGIA ANGELA ROSI, S. PD","AFIF HIDAYATUL MUSTAFID, S.SI","AHMAD AOFA FARHAN AMIEN","EPI SEPTIANINGSIH","IOS SOPANDI","SOFYANDI","IBNU CHALIS MAULANA","NABILA ALYA ALEXANDRA","LETNAN KOLONEL INF AGENG WAHYU ROMADHON,S.I.P.","SOFWAH KHALQIYAH","ANDRA SONI","TANTI PRASETIOWATI","RYAN REINALDO DAVINZY","MUHAMAD AGIL ZULFIKAR","BAYU PRATAMA","ANDI MULYANA","NADIA MAHARANI","ROKHMANAH, AMR SKM","ROHMATULLOH","NURMIFTAH FAUZI","ASIH GADUH ANDRIANI","ARIEF MUHAMMAD","LIAH SHOFIYATUL AMALIYAH","SAMSUL HADI","FATMAWATI YUNIAR","NURUL SYAWALLINA","FIKRI AULIYA","AHMADI","DEDY IRSAN","ADE SURIFAH, SE","DERIS RAHAYU,S.PT","VITA NADYA DWIANA","SITI MARDIAH","SLAMET RIYANTO","RAHMAT MULYADI","ANGGI PERMATASARI","NENDEN SYOLIKHAT","EKA YULI SUSANTI","KEMAS EVIAN BAGUS PRATAMA","YUDI DAMANHURI","CHOZIAHTILLAH, S.PD., AUD","DIMAS SATRIA PUTRA, SH","HERAWATI NUFUS","HERBET MARBUN","LISTA FAUJIAH","KHUSNUL KHOTIMAH NABILAH","AMIN YULIANTO","RABEKA HERDIANI","DIMAS HANDRIANTO","ADE JAMALUDIN","ADE SUMINAR","DIKE CIDRASARI","RENA SORAYA","MUHAMMAD ARIFF WINARTO","AHMAD MUHAJIR","MUCHSININ ,S.IP","MAYANG SANTIKA DEWI","AMRIL","WIEDYA RISKI PURNAMASARI","RIA RAHMASUCI","ROHMAWATI","LYZA ANNISYA","MUHAEMIN","IIR AMELIA","BABAN TAUPIK","HASAN BASRI, S.AG","SHOFIYATUL INNAYAH","H. DADAN AMDANI, S.PD","MIKIYANA RAMADANI","LISTA QORIATUN NAJILAH","FATHI RIDWAN HIDAYATULLAH","DEDI SUHAEDI SYAPUTRA","SITI SAFFANA AZKA","ANGGA ROSIDIN","HAIRUN NISA","LILIANTY SITOHANG","SYIFA NABILAH","RATU INTAN PATINTI","ARDIAN PRASETYO","MUSFIROH","PRATIWI AMALIA","REZA MAULANA","HESTI GUSTINI","FAJAR AGUNG WAHYUDI","RATU RAHMAWATI, AMD.KOM, SH.","ACHMAD FAUZI","YAYAN SARYANI","IRDA DAYANTI","WILLY AULIA ILHAM","MOKHAMAD NURDIN","ADITYA IRIAWAN HANDOKO","ARIEL FAHRYANDI BINTAN","SUDARMAN SUBHI","YANI SULASTIANI","REVANI GENA AZZUNAIKA","ASEP KURNIAWAN","SITI DEWI KUTRIA LASMAWATI","MAULIA PRATIWI","SUDRAJAT WIBAWA","MOH. AMINUDDIN","NIKEN NURUL LARASATI","KADEK EVINKA YURISTIN","RAHMAWATI","EKA SURYAPUTRA","SITI MARLINA","HERI WAHIDIN","EDAH JUBAEDAH","MARNI SIBARANI","ULFAH KHAIDARNI","INE YUNAENI","AHMAD JAJULI","NANA SUTISNA","IRMA NURMALIA DEWI","ZULAPRILANI","SYAFIRA ZATIL AQMAR","TEGUH IMAN DARMAWAN, S.E","AWALIYAH SEPTIANI","RIANSYAH MUTAQIN","HASNA HARTYASNI SAARAHWATI","DERY ARYA PANDHIKA","GINANTI FAJAR","SA'ADATUN NUPUS","NOVIA NURSILVA SARI","KARTIKA SARI","RATNA EKAWATI","FIKRI ARGUBI","TRIA KURNIA","FATHURROHMAH","HAMDI APRIATNAA","SURYANI BR GULTOM","SYAEPUDIN","ACHMAD HENDI GUSLAN SUTISNA","AGUS WILDAN","RINA NURASYIAH","NUR FITRIYANI","KRISNA BAYU SAPUTRA","ENDAH PUSPITARINI PRAYOGO","EKI SUTISNA","SEPTIYANA HARTI SUGMA","NANA SUBANA","WAWAN HADIANTO","KURROTUL AINI","AHMADIN ZAKI","IMAM FIRDAUS","MUHAMMAD RIFQI MAULANA","MAUDIAN ISLAMIATI","SUNJAYA","RIFLIANY RESTIANNISA","FARHAN RAMADHAN","HERU HAMDANI","SYAHRUL","DIPIRIA","RACHMAT IRFANTO","RICHAD FERNANDO","INDANA AFIYAH","LINDAWATI","AHMAD SUHANDI","DWI SEPTA MULYANI","KHAERIYAH","HERNY SETIAWANTI","RIZKI FAHMI","ULFA MARIYATUL AINI","NUR ROKHIM","DOSO DARSONO","MUHAMAD FIRDAUS","RATU NURUL AROFAH","SRI WULANDARI","SIVA FAUZIA","DJAYA PURMAWAN","ANDIE FIRMANSYAH S.E","HESTINI , SE","DIKI HARI LAKSONO","KRESHNA ADIKUSUMAH, SE","BELLA YUNIAR PUTRI DWIKARTINI","ADITYA RAMADHAN","TITAWATI","HAIDAROH","MOHAMAD REZA","VIYULIA","MUHAMAD SYAHID FATAH NUGROHO","CALISTA RAHMADHANI, S.PD.","RIVANI RIDELA","MARTI MARGANINGSIH,S.PD.","ACHMAD AFIF SAIFUDDIN","INDRA HERMAWAN,S.HUT.","NIDA SILVIA LESTARI","WAHYU FATIHAH, S. PD","LIA IRAWAN","ARDIAN HAVIDANI, S.P.W.K","PUTRI DWI PERTIWI","ERSYI SYAULA","VERA FITRIANI NOOR","SYAMSURIZAL","KRISTIN AGUSTINA","NUR CAHYA","FARAH TRI MEGAWATI, S. AK","RISMAN NURSYAMSIR, SE","SAEP PUTRA","MUHAJIR","LIBERTY SAUR MARTUAH PURBA, SH","WIWIK PRATIWI, S.PD.","ENDANG MAULANA","H. SOPYAN, S.PD.","SA'ADIAH TRIASTUTI","SANGGITI BAWADI","ST RATIH NURWANTI","ANTONI NUR RIZKI","KIKI LIYA FITRIANI","TOSI RUT SYAMSUN","LALAN SUHENDARLAN","VINELIA ANGGRA KRISTIANI","SRI APRIATNI","RD NOVI HAMZAH","KHAERONI","DEWI AMALIA RAHMAN","NADIFI SILVIANA PRAMESTI, S.IP","RIZKI NUGRAHA, S.STP","DESY AULIA MARISKA","FAHRU HAYATUL FAUZI","LIA KURNIA ASIH","AVI ADITIA","MUHAMMAD IHSAN ALIFI"],["P","P","P","L","L","P","L","P","P","P","P","L","L","L","P","L","L","L","L","P","L","P","P","P","P","P","L","P","P","P","L","P","L","L","P","P","P","L","P","P","L","L","L","P","L","P","L","L","P","P","L","P","P","L","P","L","P","L","P","P","L","P","L","L","P","L","L","P","L","P","P","P","L","L","P","P","L","L","P","L","P","L","P","P","P","L","L","P","L","L","L","P","L","P","L","P","L","L","L","L","P","P","L","L","P","L","P","L","P","P","L","L","L","P","P","P","P","L","L","P","P","P","L","L","P","L","P","L","P","P","L","P","L","L","P","P","P","L","L","L","P","L","P","P","P","P","L","P","L","L","P","L","P","P","L","L","P","L","P","P","P","P","L","P","P","L","P","L","P","L","L","P","L","L","L","L","L","P","P","L","P","P","L","L","P","P","P","L","P","L","P","P","P","P","L","L","P","P","P","L","P","L","P","L","P","P","P","P","P","L","P","P","L","P","L","L","L","P","P","L","P","L","P","L","L","P","L","L","L","P","L","P","L","L","L","L","L","L","P","P","L","P","P","P","L","P","L","L","L","P","P","P","L","L","P","L","L","P","L","P","L","L","P","L","P","P","P","L","L","P","P","L","L","P","L","P","L","P","L","P","L","L","L","L","P","L","L","P","L","P","L","P","L","L","P","P","L","L","P","P","L","L","L","P","L","L"],["TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","TEKNIK KIMIA (S2)","HUKUM (S2)","ILMU KOMUNIKASI (S2)","ILMU KOMUNIKASI (S2)","HUKUM (S2)","ILMU PERTANIAN","HUKUM (S2)","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU PERTANIAN","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","TEKNIK KIMIA (S2)","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNIK KIMIA (S2)","TEKNIK KIMIA (S2)","ILMU KOMUNIKASI (S2)","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INDONESIA","MAGISTER MANAJEMEN","ILMU PERTANIAN","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","ILMU PERTANIAN","ILMU PERTANIAN","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN BAHASA INGGRIS","ILMU PERTANIAN","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","PENDIDIKAN BAHASA INGGRIS","ILMU PERTANIAN","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","MAGISTER MANAJEMEN","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","TEKNOLOGI PENDIDIKAN (S2)","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER MANAJEMEN","ILMU KOMUNIKASI (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER MANAJEMEN","ILMU PERTANIAN","HUKUM (S2)","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","HUKUM (S2)","ILMU PERTANIAN","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER MANAJEMEN","ILMU PERTANIAN","ILMU PERTANIAN","ILMU PERTANIAN","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU PERTANIAN","ILMU PERTANIAN","MAGISTER MANAJEMEN","PENDIDIKAN BAHASA INDONESIA","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU PERTANIAN","HUKUM (S2)","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","TEKNIK KIMIA (S2)","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER MANAJEMEN","HUKUM (S2)","ILMU PERTANIAN","MAGISTER MANAJEMEN","ILMU PERTANIAN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN BAHASA INDONESIA","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INGGRIS","ILMU KOMUNIKASI (S2)","PENDIDIKAN MATEMATIKA S2","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","PENDIDIKAN MATEMATIKA S2","PENDIDIKAN MATEMATIKA S2","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INDONESIA","ILMU PERTANIAN","MAGISTER AKUNTANSI","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","ILMU PERTANIAN","ILMU PERTANIAN","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","ILMU KOMUNIKASI (S2)","MAGISTER AKUNTANSI","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNIK KIMIA (S2)","MAGISTER AKUNTANSI","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","ILMU KOMUNIKASI (S2)","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER MANAJEMEN","PENDIDIKAN BAHASA INGGRIS","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER AKUNTANSI","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","ILMU PERTANIAN","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN MATEMATIKA S2","MAGISTER MANAJEMEN","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","ILMU PERTANIAN","ILMU KOMUNIKASI (S2)","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","HUKUM (S2)","PENDIDIKAN BAHASA INDONESIA","MAGISTER AKUNTANSI","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","ILMU PERTANIAN","MAGISTER AKUNTANSI","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","MAGISTER AKUNTANSI","PENDIDIKAN MATEMATIKA S2","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INDONESIA","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","TEKNIK KIMIA (S2)","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INGGRIS","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","PENDIDIKAN BAHASA INDONESIA","PENDIDIKAN BAHASA INDONESIA","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","PENDIDIKAN BAHASA INGGRIS","MAGISTER ADMINISTRASI PUBLIK","MAGISTER MANAJEMEN","PENDIDIKAN MATEMATIKA S2","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER AKUNTANSI","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU KOMUNIKASI (S2)"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-895f5392f4bcd13609c1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-895f5392f4bcd13609c1">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[[21125317,21125382,21125431,21125485,21125556,21125654,21125688,21125780,21125903,21125210,21125229,21125281,21125472,21125473,21125854,21125873,21125931,21125966,21126014,21125217,21125430,21125524,21125640,21125648,21125711,21125832,21125836,21126063,21125106,21125143,21125170,21125408,21125566,21125662,21125843,21126003,21126056,21125196,21125280,21125395,21125480,21125598,21125862,21125982,21126078,21126084,21125261,21125407,21125492,21125554,21125657,21125833,21125218,21125228,21125339,21125346,21125645,21125680,21125799,21125923,21126073,21125159,21125234,21125378,21125413,21125639,21125857,21125967,21126066,21125310,21125414,21125525,21125583,21125612,21125671,21125978,21126038,21125160,21125582,21125653,21125748,21125792,21125860,21126146,21126162,21126254,21125559,21125682,21125714,21125813,21126032,21126237,21126262,21126264,21126270,21126323,21125299,21125790,21125801,21126085,21126104,21126125,21126127,21126199,21125284,21125327,21125717,21125983,21126114,21126122,21126128,21126167,21126268,21126322,21126339,21126351,21126387,21125089,21125093,21125149,21125248,21125279,21125348,21125366,21125385,21125509,21125526,21125547,21125600,21125602,21125608,21125666,21125676,21125902,21126050,21126175,21126201,21126298,21126304,21125169,21125312,21125444,21125555,21125718,21125867,21125875,21125906,21126000,21126046,21125177,21125241,21125290,21125355,21125360,21125375,21125469,21125739,21125802,21126083,21125386,21125441,21125458,21125603,21125613,21125673,21125698,21125729,21125926,21125938,21110345,21110490,21110660,21111347,21111409,21111610,21111768,21111770,21111780,21111880,21110043,21110181,21110598,21110608,21110832,21110862,21111211,21111684,21111712,21111800,21110251,21110258,21110281,21111254,21111274,21111478,21111633,21111634,21111694,21111837,21110219,21110227,21110516,21110556,21110782,21110876,21110880,21110890,21111198,21111477,21110234,21110274,21110282,21110571,21110678,21110749,21110778,21111466,21111721,21111848,21110320,21110592,21110707,21110834,21110900,21111389,21111521,21111635,21111912,21110045,21110057,21110648,21110727,21111977,21110185,21110249,21110474,21111375,21111437,21111534,21111831,21111968,21110334,21110443,21110567,21110686,21110785,21110945,21111066,21111268,21111422,21110050,21110178,21110538,21110977,21111508,21111557,21111561,21111745,21110333,21110638,21111142,21111387,21110059,21110187,21110599,21110779,21110898,21111131,21111490,21111835,21110092,21110580,21110731,21111391,21111392,21111722,21111756,21111765,21111787,21110154,21110203,21110559,21111017,21111036,21111136,21111210,21111296,21111418,21111450,21110010,21110140,21110161,21110247,21110967,21110979,21111909,21111936,21111985,21110197,21110336,21110679,21110692,21111212,21111483,21111488,21111589],["RATU TIARA SAVIRA","BETI WIDIASTUTI","ERMIA FAYANA","ACHMAD SIROJ","IRFAN ABDURRAHMAN","HANIFAH FAJRIANI","AJAT SUDRAJAT","SYEILA MUTIE, S.M.","BINA MANDIRI ZEN","INKI RIZQIA","PINKAN NAHRUL HAKIM","MUHAMMAD MARFAD RIVARDI","MUKHAMAD WAHYU KUSWANTORO","MOCHAMAD ALVIN FIKRI","DEBBY NURIMAN","NURMAN ABDUL HAKIM","NUNGKY RUSLANDY","FATHURROHMAN HAKIM","HENDI ISWANTO, S.PD.T","RISKIANI","DADANG SUTISNA","LIA YULIA","NURFITRI","RISA PUSVITASARI","HETI SUHAETI","KARSIKAH","MOHAMAD DANAR HIDAYAH","KURNAENGSIH","SITI ROHAYATI","FITRI FIANINGRUM","MACARIUS ERWIN YUWONO KRISTANTO","NOVA RIZKA FAUZY","A'RIF ROKHMAN","MUHAMMAD NAUFAL LUQMANULHAKIM","INTAN FATIMAH","DERA ALFIANI","EKA KURNIASARI","ABDURROHMAN","IKA KURNIATI","MUTIARA PUSPITA SARI","MAHPUDIN","ACHMAD YUDHA","RM. YUDHA PRATAMA, S.H","TIAMILLA, SH","AHMAD GHOZALI","DEISI MAGDALENA GULTOM","ARIES PRATAMA PUTRA","AWAN DHARMAWAN","INDAH PUSPARANI","MULYANI PRATIWI SW","ANTA WIGUNA","WINDA WULANDARI","FITRI NURAISAH","YOPI ILHAM AKBAR PUTRA","VANI VAULIYANTI","MUHAMAD SUPRONI","IRA HERYANI, ST","SYIROJUL UMAM R.A","CATUR WIJAYANTI","FEBRIN HELENA","ARYA KUSUMA HIDAYANTO","INTI AMALIAH","AHMAD UFUWAN","JHON MARTHIN","ELIZABETH RIZKA DA LOPEZ","SANDY PRAYOGA","WILY MOCHAMAD IQBAL, S.STP","ENGELIN KAMEA, SH","IIP MUALIP S.PD","RESTIE EMILLIA FERDIAN","AMANDA KENSHI NURFITRI","IKE RACHMAWATI","KUNTO TRIHATMOJO, SH.","HASHFI SOEMBAGA, S.STP","LISTIA AULIA INDY","MAHFUDOH","UWES HERMAWAN","AHMAD HILAL FAUZI","RADEN RARA EVI OKTAVIANI S","BUDI SUHENDRA","HOLISAH","SONI CANDRA","ROSIANA","RIZA NURFIDIA FEBRIANTI, S.E","NUKE VIRGIA ANGELA ROSI, S. PD","AFIF HIDAYATUL MUSTAFID, S.SI","AHMAD AOFA FARHAN AMIEN","EPI SEPTIANINGSIH","IOS SOPANDI","SOFYANDI","IBNU CHALIS MAULANA","NABILA ALYA ALEXANDRA","LETNAN KOLONEL INF AGENG WAHYU ROMADHON,S.I.P.","SOFWAH KHALQIYAH","ANDRA SONI","TANTI PRASETIOWATI","RYAN REINALDO DAVINZY","MUHAMAD AGIL ZULFIKAR","BAYU PRATAMA","ANDI MULYANA","NADIA MAHARANI","ROKHMANAH, AMR SKM","ROHMATULLOH","NURMIFTAH FAUZI","ASIH GADUH ANDRIANI","ARIEF MUHAMMAD","LIAH SHOFIYATUL AMALIYAH","SAMSUL HADI","FATMAWATI YUNIAR","NURUL SYAWALLINA","FIKRI AULIYA","AHMADI","DEDY IRSAN","ADE SURIFAH, SE","DERIS RAHAYU,S.PT","VITA NADYA DWIANA","SITI MARDIAH","SLAMET RIYANTO","RAHMAT MULYADI","ANGGI PERMATASARI","NENDEN SYOLIKHAT","EKA YULI SUSANTI","KEMAS EVIAN BAGUS PRATAMA","YUDI DAMANHURI","CHOZIAHTILLAH, S.PD., AUD","DIMAS SATRIA PUTRA, SH","HERAWATI NUFUS","HERBET MARBUN","LISTA FAUJIAH","KHUSNUL KHOTIMAH NABILAH","AMIN YULIANTO","RABEKA HERDIANI","DIMAS HANDRIANTO","ADE JAMALUDIN","ADE SUMINAR","DIKE CIDRASARI","RENA SORAYA","MUHAMMAD ARIFF WINARTO","AHMAD MUHAJIR","MUCHSININ ,S.IP","MAYANG SANTIKA DEWI","AMRIL","WIEDYA RISKI PURNAMASARI","RIA RAHMASUCI","ROHMAWATI","LYZA ANNISYA","MUHAEMIN","IIR AMELIA","BABAN TAUPIK","HASAN BASRI, S.AG","SHOFIYATUL INNAYAH","H. DADAN AMDANI, S.PD","MIKIYANA RAMADANI","LISTA QORIATUN NAJILAH","FATHI RIDWAN HIDAYATULLAH","DEDI SUHAEDI SYAPUTRA","SITI SAFFANA AZKA","ANGGA ROSIDIN","HAIRUN NISA","LILIANTY SITOHANG","SYIFA NABILAH","RATU INTAN PATINTI","ARDIAN PRASETYO","MUSFIROH","PRATIWI AMALIA","REZA MAULANA","HESTI GUSTINI","FAJAR AGUNG WAHYUDI","RATU RAHMAWATI, AMD.KOM, SH.","ACHMAD FAUZI","YAYAN SARYANI","IRDA DAYANTI","WILLY AULIA ILHAM","MOKHAMAD NURDIN","ADITYA IRIAWAN HANDOKO","ARIEL FAHRYANDI BINTAN","SUDARMAN SUBHI","YANI SULASTIANI","REVANI GENA AZZUNAIKA","ASEP KURNIAWAN","SITI DEWI KUTRIA LASMAWATI","MAULIA PRATIWI","SUDRAJAT WIBAWA","MOH. AMINUDDIN","NIKEN NURUL LARASATI","KADEK EVINKA YURISTIN","RAHMAWATI","EKA SURYAPUTRA","SITI MARLINA","HERI WAHIDIN","EDAH JUBAEDAH","MARNI SIBARANI","ULFAH KHAIDARNI","INE YUNAENI","AHMAD JAJULI","NANA SUTISNA","IRMA NURMALIA DEWI","ZULAPRILANI","SYAFIRA ZATIL AQMAR","TEGUH IMAN DARMAWAN, S.E","AWALIYAH SEPTIANI","RIANSYAH MUTAQIN","HASNA HARTYASNI SAARAHWATI","DERY ARYA PANDHIKA","GINANTI FAJAR","SA'ADATUN NUPUS","NOVIA NURSILVA SARI","KARTIKA SARI","RATNA EKAWATI","FIKRI ARGUBI","TRIA KURNIA","FATHURROHMAH","HAMDI APRIATNAA","SURYANI BR GULTOM","SYAEPUDIN","ACHMAD HENDI GUSLAN SUTISNA","AGUS WILDAN","RINA NURASYIAH","NUR FITRIYANI","KRISNA BAYU SAPUTRA","ENDAH PUSPITARINI PRAYOGO","EKI SUTISNA","SEPTIYANA HARTI SUGMA","NANA SUBANA","WAWAN HADIANTO","KURROTUL AINI","AHMADIN ZAKI","IMAM FIRDAUS","MUHAMMAD RIFQI MAULANA","MAUDIAN ISLAMIATI","SUNJAYA","RIFLIANY RESTIANNISA","FARHAN RAMADHAN","HERU HAMDANI","SYAHRUL","DIPIRIA","RACHMAT IRFANTO","RICHAD FERNANDO","INDANA AFIYAH","LINDAWATI","AHMAD SUHANDI","DWI SEPTA MULYANI","KHAERIYAH","HERNY SETIAWANTI","RIZKI FAHMI","ULFA MARIYATUL AINI","NUR ROKHIM","DOSO DARSONO","MUHAMAD FIRDAUS","RATU NURUL AROFAH","SRI WULANDARI","SIVA FAUZIA","DJAYA PURMAWAN","ANDIE FIRMANSYAH S.E","HESTINI , SE","DIKI HARI LAKSONO","KRESHNA ADIKUSUMAH, SE","BELLA YUNIAR PUTRI DWIKARTINI","ADITYA RAMADHAN","TITAWATI","HAIDAROH","MOHAMAD REZA","VIYULIA","MUHAMAD SYAHID FATAH NUGROHO","CALISTA RAHMADHANI, S.PD.","RIVANI RIDELA","MARTI MARGANINGSIH,S.PD.","ACHMAD AFIF SAIFUDDIN","INDRA HERMAWAN,S.HUT.","NIDA SILVIA LESTARI","WAHYU FATIHAH, S. PD","LIA IRAWAN","ARDIAN HAVIDANI, S.P.W.K","PUTRI DWI PERTIWI","ERSYI SYAULA","VERA FITRIANI NOOR","SYAMSURIZAL","KRISTIN AGUSTINA","NUR CAHYA","FARAH TRI MEGAWATI, S. AK","RISMAN NURSYAMSIR, SE","SAEP PUTRA","MUHAJIR","LIBERTY SAUR MARTUAH PURBA, SH","WIWIK PRATIWI, S.PD.","ENDANG MAULANA","H. SOPYAN, S.PD.","SA'ADIAH TRIASTUTI","SANGGITI BAWADI","ST RATIH NURWANTI","ANTONI NUR RIZKI","KIKI LIYA FITRIANI","TOSI RUT SYAMSUN","LALAN SUHENDARLAN","VINELIA ANGGRA KRISTIANI","SRI APRIATNI","RD NOVI HAMZAH","KHAERONI","DEWI AMALIA RAHMAN","NADIFI SILVIANA PRAMESTI, S.IP","RIZKI NUGRAHA, S.STP","DESY AULIA MARISKA","FAHRU HAYATUL FAUZI","LIA KURNIA ASIH","AVI ADITIA","MUHAMMAD IHSAN ALIFI"],["P","P","P","L","L","P","L","P","P","P","P","L","L","L","P","L","L","L","L","P","L","P","P","P","P","P","L","P","P","P","L","P","L","L","P","P","P","L","P","P","L","L","L","P","L","P","L","L","P","P","L","P","P","L","P","L","P","L","P","P","L","P","L","L","P","L","L","P","L","P","P","P","L","L","P","P","L","L","P","L","P","L","P","P","P","L","L","P","L","L","L","P","L","P","L","P","L","L","L","L","P","P","L","L","P","L","P","L","P","P","L","L","L","P","P","P","P","L","L","P","P","P","L","L","P","L","P","L","P","P","L","P","L","L","P","P","P","L","L","L","P","L","P","P","P","P","L","P","L","L","P","L","P","P","L","L","P","L","P","P","P","P","L","P","P","L","P","L","P","L","L","P","L","L","L","L","L","P","P","L","P","P","L","L","P","P","P","L","P","L","P","P","P","P","L","L","P","P","P","L","P","L","P","L","P","P","P","P","P","L","P","P","L","P","L","L","L","P","P","L","P","L","P","L","L","P","L","L","L","P","L","P","L","L","L","L","L","L","P","P","L","P","P","P","L","P","L","L","L","P","P","P","L","L","P","L","L","P","L","P","L","L","P","L","P","P","P","L","L","P","P","L","L","P","L","P","L","P","L","P","L","L","L","L","P","L","L","P","L","P","L","P","L","L","P","P","L","L","P","P","L","L","L","P","L","L"],["TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","TEKNIK KIMIA (S2)","HUKUM (S2)","ILMU KOMUNIKASI (S2)","ILMU KOMUNIKASI (S2)","HUKUM (S2)","ILMU PERTANIAN","HUKUM (S2)","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU PERTANIAN","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","TEKNIK KIMIA (S2)","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNIK KIMIA (S2)","TEKNIK KIMIA (S2)","ILMU KOMUNIKASI (S2)","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INDONESIA","MAGISTER MANAJEMEN","ILMU PERTANIAN","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","ILMU PERTANIAN","ILMU PERTANIAN","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN BAHASA INGGRIS","ILMU PERTANIAN","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","PENDIDIKAN BAHASA INGGRIS","ILMU PERTANIAN","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","MAGISTER MANAJEMEN","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","TEKNOLOGI PENDIDIKAN (S2)","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER MANAJEMEN","ILMU KOMUNIKASI (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","MAGISTER MANAJEMEN","ILMU PERTANIAN","HUKUM (S2)","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","HUKUM (S2)","ILMU PERTANIAN","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER MANAJEMEN","ILMU PERTANIAN","ILMU PERTANIAN","ILMU PERTANIAN","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU PERTANIAN","ILMU PERTANIAN","MAGISTER MANAJEMEN","PENDIDIKAN BAHASA INDONESIA","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU PERTANIAN","HUKUM (S2)","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","TEKNIK KIMIA (S2)","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER MANAJEMEN","HUKUM (S2)","ILMU PERTANIAN","MAGISTER MANAJEMEN","ILMU PERTANIAN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN BAHASA INDONESIA","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INGGRIS","ILMU KOMUNIKASI (S2)","PENDIDIKAN MATEMATIKA S2","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","PENDIDIKAN MATEMATIKA S2","PENDIDIKAN MATEMATIKA S2","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INDONESIA","ILMU PERTANIAN","MAGISTER AKUNTANSI","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","ILMU PERTANIAN","ILMU PERTANIAN","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","ILMU KOMUNIKASI (S2)","MAGISTER AKUNTANSI","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNIK KIMIA (S2)","MAGISTER AKUNTANSI","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","HUKUM (S2)","ILMU KOMUNIKASI (S2)","PENDIDIKAN BAHASA INGGRIS","HUKUM (S2)","ILMU KOMUNIKASI (S2)","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","HUKUM (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER MANAJEMEN","PENDIDIKAN BAHASA INGGRIS","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","MAGISTER MANAJEMEN","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER AKUNTANSI","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","ILMU PERTANIAN","HUKUM (S2)","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN MATEMATIKA S2","MAGISTER MANAJEMEN","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","ILMU PERTANIAN","ILMU KOMUNIKASI (S2)","TEKNIK KIMIA (S2)","MAGISTER MANAJEMEN","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","HUKUM (S2)","PENDIDIKAN BAHASA INDONESIA","MAGISTER AKUNTANSI","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER MANAJEMEN","ILMU PERTANIAN","MAGISTER AKUNTANSI","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","HUKUM (S2)","MAGISTER AKUNTANSI","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","ILMU KOMUNIKASI (S2)","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","MAGISTER AKUNTANSI","PENDIDIKAN MATEMATIKA S2","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INDONESIA","HUKUM (S2)","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN MATEMATIKA S2","MAGISTER ADMINISTRASI PUBLIK","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","TEKNIK KIMIA (S2)","TEKNOLOGI PENDIDIKAN (S2)","PENDIDIKAN BAHASA INGGRIS","MAGISTER AKUNTANSI","MAGISTER AKUNTANSI","PENDIDIKAN BAHASA INDONESIA","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","PENDIDIKAN BAHASA INDONESIA","PENDIDIKAN BAHASA INDONESIA","PENDIDIKAN MATEMATIKA S2","MAGISTER AKUNTANSI","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","PENDIDIKAN BAHASA INGGRIS","MAGISTER ADMINISTRASI PUBLIK","MAGISTER MANAJEMEN","PENDIDIKAN MATEMATIKA S2","MAGISTER MANAJEMEN","MAGISTER MANAJEMEN","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","MAGISTER ADMINISTRASI PUBLIK","TEKNOLOGI PENDIDIKAN (S2)","MAGISTER AKUNTANSI","TEKNOLOGI PENDIDIKAN (S2)","HUKUM (S2)","ILMU KOMUNIKASI (S2)"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0},{"name":"No Pendaftaran","targets":0},{"name":"Nama","targets":1},{"name":"Jenis Kelamin","targets":2},{"name":"Program Studi","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -3781,35 +3018,35 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="black">70 </span></p>
+<span class="value-output" data-caption="Peminat di Untirta" data-icon="fas fa-clipboard-check" data-color="#000000" data-color-text="#fff" data-color-icon="#0d0d0d">88 </span>
 </div>
 <div id="lulus-4" class="section level3 value-box">
 <h3 class="value-box">lulus</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Lulus Seleksi S3" data-icon="fas fa-clipboard-check" data-color="purple">43 </span></p>
+<span class="value-output" data-caption="Lulus Seleksi S3" data-icon="fas fa-clipboard-check" data-color="#800080" data-color-text="#fff" data-color-icon="#4d0d4d">51 </span>
 </div>
 <div id="laki-laki-4" class="section level3 value-box">
 <h3 class="value-box">laki-laki</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="blue">22 (51%)</span></p>
+<span class="value-output" data-caption="Laki-Laki" data-icon="fas fa-male" data-color="#0000FF" data-color-text="#fff" data-color-icon="#0d0d8d">26 (51%)</span>
 </div>
 <div id="perempuan-4" class="section level3 value-box">
 <h3 class="value-box">perempuan</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="pink">21 (49%)</span></p>
+<span class="value-output" data-caption="Perempuan" data-icon="fas fa-female" data-color="#FFC0CB" data-color-text="#1a1a1a" data-color-icon="#ffe0e5">25 (49%)</span>
 </div>
 <div id="maba-4" class="section level3 value-box">
 <h3 class="value-box">maba</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="cornflowerblue">43  ( 100 % )</span></p>
+<span class="value-output" data-caption="Mahasiswa Baru" data-icon="fas fa-thumbs-up" data-color="#6495ED" data-color-text="#1a1a1a" data-color-icon="#b2caf6">51  ( 100 % )</span>
 </div>
 </div>
 <div id="row-13" class="section level2">
@@ -3819,7 +3056,7 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -3854,13 +3091,13 @@ ILMU AKUNTANSI
 S3
 </td>
 <td style="text-align:right;">
-31
+49
 </td>
 <td style="text-align:right;">
-17
+25
 </td>
 <td style="text-align:right;">
-17
+25
 </td>
 </tr>
 <tr>
@@ -3894,13 +3131,13 @@ Total
 <ul>
 <li></td>
 <td style="text-align:right;">
-70
+88
 </td>
 <td style="text-align:right;">
-43
+51
 </td>
 <td style="text-align:right;">
-43
+51
 </td>
 </tr>
 </tbody>
@@ -3916,8 +3153,8 @@ Total
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div id="htmlwidget-855482e66357580780e8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-855482e66357580780e8">{"x":{"filter":"none","fillContainer":true,"data":[[21420069,21420142,21420226,21420287,21420334,21420478,21430022,21430081,21430328,21420010,21420058,21420132,21420196,21420217,21420315,21420340,21420348,21420444,21430589,21420130,21420347,21420417,21420448,21420502,21420009,21420032,21420163,21420211,21420219,21420255,21420282,21420425,21420430,21430098,21430201,21430287,21430292,21430355,21430362,21430405,21430460,20110073,20110602],["IDA","MUHAMMAD ARAS PRABOWO, S.E., M.AK","SURYADI","SUTRISNO SADJI EVENDDY","ASTRY WULANDARI","HJ. RT. BAI ROHIMAH, S.AG, MA","ENDAH UTAMININGTYAS","NISA NURANISA","YULISTINA NUR DS","IMAN SAMPURNA","WASIS DEWANTO","SUMIYANI","INTAN SARI RAMDHANI","RIA SUDIANA","MUHAMMAD IBRA GHOLIBI","IMAM HIDAYAT","NOFRIADY EKA PUTRA","WILLY NURHAYADI","DRA. WIWI PURNAMA DEWI, M.SI","ANDINI EKASARI","LAELY NURIYAH","MOCHAMAD FAHRU KOMARUDIN","PRASETYONO HENDRIARTO","SILVIA DEWIYANTI","FIRMAN EDI, S.PD.,M.PD","SAPTA SETIA DARMA","SETYARINI SANTOSA","TATU MUNAWAROH, M.PD","NURYATI","WALDATUN THAI 'ATUN","ALIM HARDIANSYAH","NUR HIDAYAT, ST., S.M., M.PD., M.M","ADE SITI HARYANTI","MUHAMMAD FARIS AFIF","MAYA RICHMAYATI","RR DIAN ANGGRAENI","SUSANTO WIBOWO","ENDANG IRYANI","BUSTANUL ARIFIN","ASEP AWALUDIN","SUMARYO","RATIH  PURNAMASARI","ROSEDIAN ANDRIANI"],["P","L","L","L","P","P","P","P","P","L","L","P","P","L","L","L","L","L","P","P","P","L","L","P","L","L","P","P","P","P","L","L","P","L","P","P","L","L","L","L","L","P","P"],["PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f44a026e61245b1e7981" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f44a026e61245b1e7981">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[[21420069,21420142,21420226,21420287,21420334,21420478,21430022,21430081,21430328,21420010,21420058,21420132,21420196,21420217,21420315,21420340,21420348,21420444,21430589,21420130,21420347,21420417,21420448,21420502,21420009,21420032,21420163,21420211,21420219,21420255,21420282,21420425,21420430,21430098,21430201,21430287,21430292,21430355,21430362,21430405,21430460,20110073,20110602,20110666,20110689,20110504,20110515,20110575,20110635,20110641,20110650],["IDA","MUHAMMAD ARAS PRABOWO, S.E., M.AK","SURYADI","SUTRISNO SADJI EVENDDY","ASTRY WULANDARI","HJ. RT. BAI ROHIMAH, S.AG, MA","ENDAH UTAMININGTYAS","NISA NURANISA","YULISTINA NUR DS","IMAN SAMPURNA","WASIS DEWANTO","SUMIYANI","INTAN SARI RAMDHANI","RIA SUDIANA","MUHAMMAD IBRA GHOLIBI","IMAM HIDAYAT","NOFRIADY EKA PUTRA","WILLY NURHAYADI","DRA. WIWI PURNAMA DEWI, M.SI","ANDINI EKASARI","LAELY NURIYAH","MOCHAMAD FAHRU KOMARUDIN","PRASETYONO HENDRIARTO","SILVIA DEWIYANTI","FIRMAN EDI, S.PD.,M.PD","SAPTA SETIA DARMA","SETYARINI SANTOSA","TATU MUNAWAROH, M.PD","NURYATI","WALDATUN THAI 'ATUN","ALIM HARDIANSYAH","NUR HIDAYAT, ST., S.M., M.PD., M.M","ADE SITI HARYANTI","MUHAMMAD FARIS AFIF","MAYA RICHMAYATI","RR DIAN ANGGRAENI","SUSANTO WIBOWO","ENDANG IRYANI","BUSTANUL ARIFIN","ASEP AWALUDIN","SUMARYO","RATIH  PURNAMASARI","ROSEDIAN ANDRIANI","HENDRIETA FERIEKA","DHARMENDRA","NELA DHARMAYANTI","KA TIONG","DIRVI SURYA ABBAS","PUTRI MUTIRA","FITRIYAH NURHIDAYAH","YANTI"],["P","L","L","L","P","P","P","P","P","L","L","P","P","L","L","L","L","L","P","P","P","L","L","P","L","L","P","P","P","P","L","L","P","L","P","P","L","L","L","L","L","P","P","P","L","L","L","L","P","P","P"],["PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","PENDIDIKAN (S3)","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI","ILMU AKUNTANSI"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th>No Pendaftaran<\/th>\n      <th>Nama<\/th>\n      <th>Jenis Kelamin<\/th>\n      <th>Program Studi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0},{"name":"No Pendaftaran","targets":0},{"name":"Nama","targets":1},{"name":"Jenis Kelamin","targets":2},{"name":"Program Studi","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -3925,11 +3162,9 @@ Total
 </div>
 
 <script>
-
-$(document).ready(function () {
-
+$(document).ready(function() {
   // add bootstrap table styles to pandoc tables
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed table-sm');
 
   // initialize mathjax
   var script = document.createElement("script");
@@ -3943,7 +3178,6 @@ $(document).ready(function () {
 <script type="text/javascript">
 $(document).ready(function () {
   FlexDashboard.init({
-    theme: "cosmo",
     fillPage: false,
     orientation: "rows",
     storyboard: false,
@@ -3952,6 +3186,21 @@ $(document).ready(function () {
     defaultFigWidthMobile: 360,
     defaultFigHeightMobile: 460,
     resize_reload: true
+  });
+  var navbar = $(".navbar").first();
+  var body = $("body").first();
+  var sidebar = $(".section.sidebar").first();
+  function addNavbarPadding() {
+    var navHeight = navbar.outerHeight();
+    body.css("padding-top", (navHeight + 8) + "px");
+    sidebar.css("top", navHeight + "px");
+    var resizeEvent = window.document.createEvent("UIEvents");
+    resizeEvent.initUIEvent("resize", true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
+  }
+  if (!window.Shiny) setTimeout(addNavbarPadding, 100);
+  $(document).on("shiny:idle", function() {
+    setTimeout(addNavbarPadding, 50);
   });
 });
 </script>
